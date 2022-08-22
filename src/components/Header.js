@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ title }) {
   const [showBar, setShowBar] = useState(false);
@@ -34,7 +35,7 @@ function Header({ title }) {
         </button>
       )}
       { showBar
-      && <input data-testid="search-input" type="text" /> }
+      && <SearchBar /> }
       <h2 data-testid="page-title">{title}</h2>
     </div>
   );
