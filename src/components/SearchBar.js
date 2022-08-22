@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
-import fetchFoods from '../servicesAPI/requests';
+import { fetchFoods, fetchDrinks } from '../servicesAPI/requests';
 
 export default function SearchBar() {
   const {
     currentSelected,
     setCurrentSelected,
-    // apiResponse,
-    // setApiResponse,
+    setApiResponse,
     inputSearch,
     setInputSearch,
+    currentCategory,
   } = useContext(SearchContext);
 
   const handleInput = ({ target }) => {
@@ -20,11 +21,21 @@ export default function SearchBar() {
 
   const verifyInput = () => !(currentSelected !== '' && inputSearch.length > 0);
 
+  const history = useHistory();
+
   const handleSearch = async () => {
     if (inputSearch.length > 1 && currentSelected === 'firstLetter') {
       global.alert('Your search must have only 1 (one) character');
     }
-    await fetchFoods(currentSelected, inputSearch);
+    const recipesData = currentCategory === 'foods'
+      ? await fetchFoods(currentSelected, inputSearch)
+      : await fetchDrinks(currentSelected, inputSearch);
+    setApiResponse(recipesData);
+    if (recipesData.length === 1 && currentCategory === 'foods') {
+      history.push(`/foods/${recipesData[0].idMeal}`);
+    } else if (recipesData.length === 1 && currentCategory === 'drinks') {
+      history.push(`/drinks/${recipesData[0].idDrink}`);
+    }
   };
 
   return (

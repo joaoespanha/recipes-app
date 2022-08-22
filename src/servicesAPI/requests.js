@@ -1,6 +1,6 @@
 import * as URL from '../helpers/endpoints';
 
-async function fetchFoods(currentSelected, inputSearch) {
+export async function fetchFoods(currentSelected, inputSearch) {
   let complementURL = '';
   const formatedInputSearch = inputSearch.replaceAll(' ', '_');
   if (currentSelected === 'ingredient') {
@@ -22,4 +22,24 @@ async function fetchFoods(currentSelected, inputSearch) {
   }
 }
 
-export default fetchFoods;
+export async function fetchDrinks(currentSelected, inputSearch) {
+  let complementURL = '';
+  const formatedInputSearch = inputSearch.replaceAll(' ', '_');
+  if (currentSelected === 'ingredient') {
+    complementURL = `${URL.ingredientsDrinks}${formatedInputSearch}`;
+  } else if (currentSelected === 'name') {
+    complementURL = `${URL.nameDrinks}${formatedInputSearch}`;
+  } else if (currentSelected === 'firstLetter') {
+    complementURL = `${URL.firstLetterDrink}${inputSearch}`;
+  }
+  try {
+    const response = await fetch(complementURL);
+    const data = await response.json();
+    if (data.drinks === null) {
+      throw new Error('URL inválida');
+    }
+    return data.drinks;
+  } catch (error) {
+    console.log(error.message);
+  }
+}

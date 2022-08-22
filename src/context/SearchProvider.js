@@ -6,6 +6,7 @@ export default function SearchProvider({ children }) {
   const [currentSelected, setCurrentSelected] = useState('');
   const [apiResponse, setApiResponse] = useState([]);
   const [inputSearch, setInputSearch] = useState('');
+  const [currentCategory, setCurrentCategory] = useState('foods');
 
   return (
     <SearchContext.Provider
@@ -16,6 +17,8 @@ export default function SearchProvider({ children }) {
         setApiResponse,
         inputSearch,
         setInputSearch,
+        currentCategory,
+        setCurrentCategory,
       } }
     >
       { children }
