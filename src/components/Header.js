@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title }) {
+export default function Header({ title }) {
   const [showBar, setShowBar] = useState(false);
 
   const toggleSearchBar = () => {
@@ -44,5 +44,3 @@ function Header({ title }) {
 Header.propTypes = {
   title: PropTypes.string,
 }.isRequired;
-
-export default Header;
