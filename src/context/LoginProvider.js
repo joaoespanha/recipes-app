@@ -5,6 +5,7 @@ import LoginContext from './LoginContext';
 function LoginProvider({ children }) {
   const [disabled, setDisabled] = useState(true);
   const [emailInput, setEmailInput] = useState('');
+  // verificar se precisamos puxar o valor inicial do localstorage
   const [passwordInput, setPasswordInput] = useState('');
 
   return (
