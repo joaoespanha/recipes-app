@@ -31,9 +31,9 @@ export default function SearchBar() {
       ? await fetchFoods(currentSelected, inputSearch)
       : await fetchDrinks(currentSelected, inputSearch);
     setApiResponse(recipesData);
-    if (recipesData.length === 1 && currentCategory === 'foods') {
+    if (recipesData?.length === 1 && currentCategory === 'foods') {
       history.push(`/foods/${recipesData[0].idMeal}`);
-    } else if (recipesData.length === 1 && currentCategory === 'drinks') {
+    } else if (recipesData?.length === 1 && currentCategory === 'drinks') {
       history.push(`/drinks/${recipesData[0].idDrink}`);
     }
   };

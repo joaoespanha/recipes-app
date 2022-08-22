@@ -1,4 +1,5 @@
 import * as URL from '../helpers/endpoints';
+import * as mocks from '../tests/helpers/mocks';
 
 export async function fetchFoods(currentSelected, inputSearch) {
   let complementURL = '';
@@ -14,11 +15,11 @@ export async function fetchFoods(currentSelected, inputSearch) {
     const response = await fetch(complementURL);
     const data = await response.json();
     if (data.meals === null) {
-      throw new Error('URL inválida');
+      throw new Error(mocks.errorMessage);
     }
     return data.meals;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 }
 
@@ -36,10 +37,10 @@ export async function fetchDrinks(currentSelected, inputSearch) {
     const response = await fetch(complementURL);
     const data = await response.json();
     if (data.drinks === null) {
-      throw new Error('URL inválida');
+      throw new Error(mocks.errorMessage);
     }
     return data.drinks;
   } catch (error) {
-    console.log(error.message);
+    alert(error.message);
   }
 }
