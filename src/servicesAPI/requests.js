@@ -45,3 +45,18 @@ export async function fetchDrinks(currentSelected, inputSearch) {
     global.alert(error.message);
   }
 }
+
+export async function getStartRecipes(currentCategory) {
+  let selectedUrl = '';
+  if (currentCategory === 'foods') {
+    selectedUrl = URL.nameFood;
+  } else if (currentCategory === 'drinks') {
+    selectedUrl = URL.nameDrinks;
+  }
+  const response = await fetch(selectedUrl);
+  const data = await response.json();
+  const selectedCategory = data?.meals ?? data.drinks;
+  return selectedCategory;
+  // if (data.meals) setApiResponse(data.meals);
+  // if (data.drinks) setApiResponse(data.drinks);
+}
