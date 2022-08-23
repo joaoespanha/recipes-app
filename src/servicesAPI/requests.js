@@ -1,5 +1,6 @@
-import * as URL from '../helpers/endpoints';
-import * as mocks from '../tests/helpers/mocks';
+import * as URL from './endpoints';
+
+const errorMessage = 'Sorry, we haven\'t found any recipes for these filters.';
 
 export async function fetchFoods(currentSelected, inputSearch) {
   let complementURL = '';
@@ -15,11 +16,11 @@ export async function fetchFoods(currentSelected, inputSearch) {
     const response = await fetch(complementURL);
     const data = await response.json();
     if (data.meals === null) {
-      throw new Error(mocks.errorMessage);
+      throw new Error(errorMessage);
     }
     return data.meals;
   } catch (error) {
-    alert(error.message);
+    global.alert(error.message);
   }
 }
 
@@ -37,10 +38,10 @@ export async function fetchDrinks(currentSelected, inputSearch) {
     const response = await fetch(complementURL);
     const data = await response.json();
     if (data.drinks === null) {
-      throw new Error(mocks.errorMessage);
+      throw new Error(errorMessage);
     }
     return data.drinks;
   } catch (error) {
-    alert(error.message);
+    global.alert(error.message);
   }
 }

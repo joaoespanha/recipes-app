@@ -27,6 +27,7 @@ function Login({ history }) {
 
   useEffect(() => {
     verifyInputs();
+    // eslint-disable-next-line
   }, [emailInput, passwordInput]);
 
   const handleInput = ({ target }) => {

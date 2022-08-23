@@ -6,5 +6,3 @@ export const invalidPassword = '123456';
 
 export const profileIconPath = 'profileIcon.svg';
 export const searchIconPath = 'searchIcon.svg';
-
-export const errorMessage = 'Sorry, we haven\'t found any recipes for these filters'

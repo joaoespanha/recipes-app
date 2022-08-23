@@ -7,6 +7,7 @@ function HomeFoods() {
 
   useEffect(() => {
     setCurrentCategory('foods');
+    // eslint-disable-next-line
   }, []);
 
   return (

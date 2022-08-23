@@ -12,6 +12,7 @@ export default function SearchBar() {
     setInputSearch,
     currentCategory,
   } = useContext(SearchContext);
+  const history = useHistory();
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
@@ -21,20 +22,28 @@ export default function SearchBar() {
 
   const verifyInput = () => !(currentSelected !== '' && inputSearch.length > 0);
 
-  const history = useHistory();
-
-  const handleSearch = async () => {
+  const verifyFirstLetter = () => {
     if (inputSearch.length > 1 && currentSelected === 'firstLetter') {
       global.alert('Your search must have only 1 (one) character');
     }
+  };
+
+  const redirectToOneRecipePage = (recipesData) => {
+    if (recipesData.length === 1 && currentCategory === 'foods') {
+      history.push(`/foods/${recipesData[0].idMeal}`);
+    } else if (recipesData.length === 1 && currentCategory === 'drinks') {
+      history.push(`/drinks/${recipesData[0].idDrink}`);
+    }
+  };
+
+  const handleSearch = async () => {
+    verifyFirstLetter();
     const recipesData = currentCategory === 'foods'
       ? await fetchFoods(currentSelected, inputSearch)
       : await fetchDrinks(currentSelected, inputSearch);
-    setApiResponse(recipesData);
-    if (recipesData?.length === 1 && currentCategory === 'foods') {
-      history.push(`/foods/${recipesData[0].idMeal}`);
-    } else if (recipesData?.length === 1 && currentCategory === 'drinks') {
-      history.push(`/drinks/${recipesData[0].idDrink}`);
+    if (recipesData) {
+      setApiResponse(recipesData);
+      redirectToOneRecipePage(recipesData);
     }
   };
 

@@ -7,6 +7,7 @@ export default function Drinks() {
 
   useEffect(() => {
     setCurrentCategory('drinks');
+    // eslint-disable-next-line
   }, []);
 
   return (
