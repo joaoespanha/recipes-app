@@ -93,10 +93,11 @@ describe('Testa o componente Search Bar na pagina de comidas', () => {
      await waitFor(() => {
       expect(fetch).toHaveBeenCalled()
      }) 
-     const foodCards =   screen.getAllByRole('img')
-     expect(foodCards).toHaveLength(mocks.apiMockData.meals.length + 2)
-     expect(foodCards[2]).toHaveAccessibleName('Spicy Arrabiata Penne')
-     expect(foodCards[3]).toHaveAccessibleName('Spicy North African Potato Salad')
+     const foodCards =   screen.getAllByTestId(/\S+-card-img/i)
+     console.log(foodCards);
+     expect(foodCards).toHaveLength(mocks.apiMockData.meals.length)
+     expect(foodCards[0]).toHaveAccessibleName('Spicy Arrabiata Penne')
+     expect(foodCards[1]).toHaveAccessibleName('Spicy North African Potato Salad')
      
   })
   test('testa se quando a busca tem apenas um resultado o usuario e redirecionado para a pagina certa', async () => {
