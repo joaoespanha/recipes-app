@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import SearchContext from '../context/SearchContext';
+import Footer from '../components/Footer';
 
 function HomeFoods() {
   const { setCurrentCategory, apiResponse } = useContext(SearchContext);
@@ -24,6 +25,7 @@ function HomeFoods() {
             index={ index }
           />))))
       }
+      <Footer />
     </div>
   );
 }
