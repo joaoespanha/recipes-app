@@ -55,6 +55,6 @@ export async function getStartRecipes(currentCategory) {
   }
   const response = await fetch(selectedUrl);
   const data = await response.json();
-  const selectedCategory = data?.meals ?? data.drinks;
-  return selectedCategory;
+  const selectedCategoryData = data?.meals ?? data.drinks;
+  return selectedCategoryData;
 }

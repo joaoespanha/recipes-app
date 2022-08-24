@@ -4,13 +4,13 @@ import Card from './Card';
 import SearchContext from '../context/SearchContext';
 import { getStartRecipes } from '../servicesAPI/requests';
 
-function Recipes({ recipeCategory }) {
+function Recipes({ recipesCategory }) {
   const { apiResponse, setApiResponse } = useContext(SearchContext);
   const maximumReceipes = 12;
 
   useEffect(() => {
     const setRecipes = async () => {
-      const recipes = await getStartRecipes(recipeCategory);
+      const recipes = await getStartRecipes(recipesCategory);
       setApiResponse(recipes);
     };
     setRecipes();
@@ -20,11 +20,12 @@ function Recipes({ recipeCategory }) {
   return (
     <main>
       {
-        apiResponse.map((_receipe, index) => (
+        apiResponse.map((recipe, index) => (
           (index < maximumReceipes) && <Card
             key={ index }
-            isMeal={ recipeCategory === 'foods' }
+            isMeal={ recipesCategory === 'foods' }
             index={ index }
+            recipeData={ recipe }
           />))
       }
     </main>
@@ -32,7 +33,7 @@ function Recipes({ recipeCategory }) {
 }
 
 Recipes.propTypes = {
-  recipeCategory: PropTypes.string,
+  recipesCategory: PropTypes.string,
 }.isRequired;
 
 export default Recipes;

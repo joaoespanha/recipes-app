@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SearchContext from './SearchContext';
 
-export default function SearchProvider({ children }) {
+function SearchProvider({ children }) {
   const [currentSelected, setCurrentSelected] = useState('');
   const [apiResponse, setApiResponse] = useState([]);
   const [inputSearch, setInputSearch] = useState('');
@@ -29,3 +29,5 @@ export default function SearchProvider({ children }) {
 SearchProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default SearchProvider;
