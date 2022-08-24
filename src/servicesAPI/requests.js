@@ -89,3 +89,19 @@ export async function getCategoryReceipes(currentCategory, clickedBtn) {
 
   return selectedCategoryData;
 }
+export async function getReceipeDetails(currentCategory, id) {
+  let complementURL = '';
+  if (currentCategory === 'foods') {
+    complementURL = `${URL.mealDetails}${id}`;
+  } else if (currentCategory === 'drinks') {
+    complementURL = `${URL.drinkDetails}${id}`;
+  }
+  // console.log('url', complementURL);
+
+  const response = await fetch(complementURL);
+  const data = await response.json();
+  // console.log(data);
+  const selectedReceipeData = data?.meals ?? data.drinks;
+
+  return selectedReceipeData;
+}
