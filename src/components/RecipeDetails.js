@@ -2,11 +2,13 @@ import React, { useEffect, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import { getReceipeDetails } from '../servicesAPI/requests';
+import DrinkDetails from './DrinkDetails';
+import FoodDetails from './FoodDetails';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
-  const { shownReceipe, setShownReceipe } = useContext(ReceipeContext);
+  const { setShownReceipe } = useContext(ReceipeContext);
 
   const setCategory = () => {
     const { pathname } = location;
@@ -15,8 +17,9 @@ export default function RecipeDetails() {
     return returnedCategory[0];
   };
 
+  const category = setCategory();
+
   const getDetails = async () => {
-    const category = setCategory();
     const receipe = await getReceipeDetails(category, id);
     console.log('receipe', receipe);
     setShownReceipe(receipe);
@@ -27,6 +30,10 @@ export default function RecipeDetails() {
   }, []);
 
   return (
-    <div>{shownReceipe[0].strAlcoholic}</div>
+    <div>
+      {
+        category === 'foods' ? <FoodDetails /> : <DrinkDetails />
+      }
+    </div>
   );
 }

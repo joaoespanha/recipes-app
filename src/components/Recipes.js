@@ -1,17 +1,24 @@
-import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Card from './Card';
 import SearchContext from '../context/SearchContext';
 import CategoriesBtns from './CategoriesBtns';
 import { getStartRecipes, getReceipesCategories } from '../servicesAPI/requests';
 
-function Recipes({ recipesCategory }) {
+function Recipes() {
   const { apiResponse,
     setApiResponse,
     setCategoriesBtnFilters,
   } = useContext(SearchContext);
+  const location = useLocation();
 
-  const maximumReceipes = 12;
+  const setCategory = () => {
+    const { pathname } = location;
+    const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
+    return returnedCategory[0];
+  };
+
+  const recipesCategory = setCategory();
 
   useEffect(() => {
     const setRecipes = async () => {
@@ -31,6 +38,8 @@ function Recipes({ recipesCategory }) {
     setCategories();
   }, []);
 
+  const maximumReceipes = 12;
+
   return (
     <main>
       <CategoriesBtns />
@@ -48,9 +57,5 @@ function Recipes({ recipesCategory }) {
     </main>
   );
 }
-
-Recipes.propTypes = {
-  recipesCategory: PropTypes.string,
-}.isRequired;
 
 export default Recipes;
