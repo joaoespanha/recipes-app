@@ -57,6 +57,4 @@ export async function getStartRecipes(currentCategory) {
   const data = await response.json();
   const selectedCategory = data?.meals ?? data.drinks;
   return selectedCategory;
-  // if (data.meals) setApiResponse(data.meals);
-  // if (data.drinks) setApiResponse(data.drinks);
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import SearchContext from '../context/SearchContext';
 
-export default function Card({ index, isMeal }) {
+function Card({ index, isMeal }) {
   const { apiResponse } = useContext(SearchContext);
 
   return (
@@ -26,3 +26,5 @@ export default function Card({ index, isMeal }) {
 Card.propTypes = {
   index: PropTypes.number,
 }.isRequired;
+
+export default Card;

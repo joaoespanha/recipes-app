@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 import { fetchFoods, fetchDrinks } from '../servicesAPI/requests';
 
-export default function SearchBar() {
+function SearchBar() {
   const {
     currentSelected,
     setCurrentSelected,
@@ -22,12 +22,6 @@ export default function SearchBar() {
 
   const verifyInput = () => !(currentSelected !== '' && inputSearch.length > 0);
 
-  const verifyFirstLetter = () => {
-    if (inputSearch.length > 1 && currentSelected === 'firstLetter') {
-      global.alert('Your search must have only 1 (one) character');
-    }
-  };
-
   const redirectToOneRecipePage = (recipesData) => {
     if (recipesData.length === 1 && currentCategory === 'foods') {
       history.push(`/foods/${recipesData[0].idMeal}`);
@@ -37,13 +31,16 @@ export default function SearchBar() {
   };
 
   const handleSearch = async () => {
-    verifyFirstLetter();
-    const recipesData = currentCategory === 'foods'
-      ? await fetchFoods(currentSelected, inputSearch)
-      : await fetchDrinks(currentSelected, inputSearch);
-    if (recipesData) {
-      setApiResponse(recipesData);
-      redirectToOneRecipePage(recipesData);
+    if (inputSearch.length > 1 && currentSelected === 'firstLetter') {
+      global.alert('Your search must have only 1 (one) character');
+    } else {
+      const recipesData = currentCategory === 'foods'
+        ? await fetchFoods(currentSelected, inputSearch)
+        : await fetchDrinks(currentSelected, inputSearch);
+      if (recipesData) {
+        setApiResponse(recipesData);
+        redirectToOneRecipePage(recipesData);
+      }
     }
   };
 
@@ -102,3 +99,5 @@ export default function SearchBar() {
     </div>
   );
 }
+
+export default SearchBar;

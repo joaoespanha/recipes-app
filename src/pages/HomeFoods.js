@@ -4,7 +4,7 @@ import SearchContext from '../context/SearchContext';
 import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
 
-export default function HomeFoods() {
+function HomeFoods() {
   const { setCurrentCategory } = useContext(SearchContext);
 
   useEffect(() => {
@@ -15,8 +15,10 @@ export default function HomeFoods() {
   return (
     <div>
       <Header title="Foods" />
-      <Recipes />
+      <Recipes recipeCategory="foods" />
       <Footer />
     </div>
   );
 }
+
+export default HomeFoods;
