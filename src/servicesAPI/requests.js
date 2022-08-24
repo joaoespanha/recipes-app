@@ -58,3 +58,34 @@ export async function getStartRecipes(currentCategory) {
   const selectedCategoryData = data?.meals ?? data.drinks;
   return selectedCategoryData;
 }
+
+export async function getReceipesCategories(currentCategory) {
+  let selectedUrl = '';
+  if (currentCategory === 'foods') {
+    selectedUrl = URL.foodCategories;
+  } else if (currentCategory === 'drinks') {
+    selectedUrl = URL.drinkCategories;
+  }
+  const response = await fetch(selectedUrl);
+  const data = await response.json();
+
+  const selectedCategoryData = data?.meals ?? data.drinks;
+  return selectedCategoryData;
+}
+
+export async function getCategoryReceipes(currentCategory, clickedBtn) {
+  let complementURL = '';
+  if (currentCategory === 'foods') {
+    complementURL = `${URL.currentFoodCategory}${clickedBtn}`;
+  } else if (currentCategory === 'drinks') {
+    complementURL = `${URL.currentDrinkCategory}${clickedBtn}`;
+  }
+  // console.log('url', complementURL);
+
+  const response = await fetch(complementURL);
+  const data = await response.json();
+  //  console.log(data);
+  const selectedCategoryData = data?.meals ?? data.drinks;
+
+  return selectedCategoryData;
+}

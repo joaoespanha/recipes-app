@@ -7,6 +7,7 @@ function SearchProvider({ children }) {
   const [apiResponse, setApiResponse] = useState([]);
   const [inputSearch, setInputSearch] = useState('');
   const [currentCategory, setCurrentCategory] = useState('foods');
+  const [categoriesBtnFilters, setCategoriesBtnFilters] = useState([]);
 
   return (
     <SearchContext.Provider
@@ -18,6 +19,8 @@ function SearchProvider({ children }) {
         inputSearch,
         setInputSearch,
         currentCategory,
+        categoriesBtnFilters,
+        setCategoriesBtnFilters,
         setCurrentCategory,
       } }
     >
