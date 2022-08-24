@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
 
-export default function LoginProvider({ children }) {
+function LoginProvider({ children }) {
   const [disabled, setDisabled] = useState(true);
   const [emailInput, setEmailInput] = useState('');
   // verificar se precisamos puxar o valor inicial do localstorage
@@ -27,3 +27,5 @@ export default function LoginProvider({ children }) {
 LoginProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default LoginProvider;

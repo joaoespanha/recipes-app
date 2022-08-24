@@ -4,11 +4,22 @@ import React from 'react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import * as mocks from './helpers/mocks';
-import { wait } from '@testing-library/user-event/dist/utils';
+
+const meals = require('../../cypress/mocks/meals');
+const drinks = require('../../cypress/mocks/drinks');
 
 describe('Testando o componente Header', () => {
-  test('Testa se os icones existem na pagina e seus atributos', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(meals),
+    });
+  });
+
+  afterEach(() => jest.resetAllMocks());
+
+  test('Testa se os ícones existem na pagina e seus atributos', async () => {
     renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
 
     const profileIcon = screen.getByTestId('profile-top-btn');
     const searchIcon = screen.getByTestId('search-top-btn');
@@ -19,8 +30,9 @@ describe('Testando o componente Header', () => {
     expect(searchIcon).toHaveAttribute('src', mocks.searchIconPath);
   });
 
-  test('Testa se há redirecionamento após o clique', () => {
+  test('Testa se há redirecionamento após o clique', async () => {
     const { history } = renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
 
     const profileIcon = screen.getByTestId('profile-top-btn');
     userEvent.click(profileIcon);
@@ -29,14 +41,14 @@ describe('Testando o componente Header', () => {
     expect(pathname).toBe('/profile');
   });
 
-  test('Testa se a barra de busca é renderizada após o clique', () => {
+  test('Testa se a barra de busca é renderizada após o clique', async () => {
     renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
 
     const searchIcon = screen.getByTestId('search-top-btn');
     userEvent.click(searchIcon);
 
-    const searchBar = screen.getByTestId('search-input');
-    expect(searchBar).toBeInTheDocument();
+    screen.getByTestId('search-input');
   });
 
   test('Testa se não há botão da searchBar', () => {
@@ -47,146 +59,134 @@ describe('Testando o componente Header', () => {
   });
 });
 
-describe('Testa o componente Search Bar na pagina de comidas', () => {
-  
-  
-  afterEach(() => jest.clearAllMocks())
+describe('Testa o componente Search Bar no Header da pagina de comidas', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(meals),
+    });
+  });
 
-  test('testa se os botoes estao na tela', () => {
-    // renderWithRouter(<App />, '/foods')
-    global.fetch =  jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mocks.apiMockData)
-    })
+  afterEach(() => jest.resetAllMocks());
 
+  test('Testa se os botões para a busca estão na tela', async () => {
     renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
+
     const searchIcon = screen.getByTestId('search-top-btn');
-    
     userEvent.click(searchIcon);
-    
-    const radioByName = screen.getByTestId('name-search-radio')
-    const radioByIngridient = screen.getByTestId('ingredient-search-radio')
-    const radioByFirstLetter = screen.getByTestId('first-letter-search-radio')
-    const searchBtn = screen.getByRole('button', {name:'Search'})
 
+    screen.getByTestId('name-search-radio');
+    screen.getByTestId('ingredient-search-radio');
+    screen.getByTestId('first-letter-search-radio');
+    screen.getByRole('button', { name: 'Search' });
+  });
 
-  })
-  test('testa se  a busca e feita por nome', async () => {
+  test('Testa se a busca é feita por nome', async () => {
     renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
 
-    global.fetch =  jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mocks.apiMockData)
-    })
     const searchIcon = screen.getByTestId('search-top-btn');
-    
     userEvent.click(searchIcon);
-    
-    const radioByName = screen.getByTestId('name-search-radio')
-    const radioByIngridient = screen.getByTestId('ingredient-search-radio')
-    const radioByFirstLetter = screen.getByTestId('first-letter-search-radio')
-    const searchBtn = screen.getByRole('button', {name:'Search'})
+
+    global.fetch.mockReset();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mocks.searchedFoodData),
+    });
+
+    const radioByName = screen.getByTestId('name-search-radio');
+    const searchBtn = screen.getByRole('button', { name: 'Search' });
     const searchBar = screen.getByTestId('search-input');
 
-    userEvent.click(radioByName)
-    userEvent.type(searchBar, 'chicken')
-    userEvent.click(searchBtn)
+    userEvent.click(radioByName);
+    userEvent.type(searchBar, 'chicken');
+    userEvent.click(searchBtn);
 
-     await waitFor(() => {
-      expect(fetch).toHaveBeenCalled()
-     }) 
-     const foodCards =   screen.getAllByTestId(/\S+-card-img/i)
-     console.log(foodCards);
-     expect(foodCards).toHaveLength(mocks.apiMockData.meals.length)
-     expect(foodCards[0]).toHaveAccessibleName('Spicy Arrabiata Penne')
-     expect(foodCards[1]).toHaveAccessibleName('Spicy North African Potato Salad')
-     
-  })
-  test('testa se quando a busca tem apenas um resultado o usuario e redirecionado para a pagina certa', async () => {
+    await screen.findByRole('heading', { name: mocks.searchedFoodData.meals[0].strMeal });
 
-    global.fetch =  jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mocks.singleCaseData)
-    })
-    const {history} =  renderWithRouter(<App />, '/foods');    
-    
+    const foodCards = screen.getAllByTestId(/\S+-card-img/i);
+    expect(foodCards).toHaveLength(mocks.searchedFoodData.meals.length);
+    expect(foodCards[0]).toHaveAccessibleName('Spicy Arrabiata Penne');
+    expect(foodCards[1]).toHaveAccessibleName('Spicy North African Potato Salad');
+  });
+
+  test('Testa se quando a busca tem apenas um resultado, o usuário é redirecionado para a página certa', async () => {
+    const { history } = renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
+
     const searchIcon = screen.getByTestId('search-top-btn');
-    
     userEvent.click(searchIcon);
-    
-    const radioByName = screen.getByTestId('name-search-radio')
-    const radioByIngridient = screen.getByTestId('ingredient-search-radio')
-    const radioByFirstLetter = screen.getByTestId('first-letter-search-radio')
-    const searchBtn = screen.getByRole('button', {name:'Search'})
+
+    global.fetch.mockReset();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mocks.singleCaseFoodData),
+    });
+
+    const radioByName = screen.getByTestId('name-search-radio');
+    const searchBtn = screen.getByRole('button', { name: 'Search' });
     const searchBar = screen.getByTestId('search-input');
 
-    userEvent.click(radioByName)
-    userEvent.type(searchBar, 'arrabiata')
-    userEvent.click(searchBtn)
+    userEvent.click(radioByName);
+    userEvent.type(searchBar, 'arrabiata');
+    userEvent.click(searchBtn);
 
-     await waitFor(() => {
-      expect(fetch).toHaveBeenCalled()
-     }) 
-     const {location:{pathname}} = history
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
 
-     expect(pathname).toBe(`/foods/${mocks.singleCaseData.meals[0].idMeal}`)
+    const { location: { pathname } } = history;
+    expect(pathname).toBe(`/foods/${mocks.singleCaseFoodData.meals[0].idMeal}`);
+  });
 
-     
-  
-})
-  test('testa se um alerta e lancado quando o usuario tentar buscar com mais de uma letra', () => {
-    global.alert =  jest.fn().mockResolvedValue(mocks.moreThanOneTypeCase)
+  test('Testa se um alerta é lançado quando o usuário tentar buscar com mais de uma letra', async () => {
+    global.alert = jest.fn().mockResolvedValue(mocks.moreThanOneTypeCase);
+    renderWithRouter(<App />, '/foods');
+    await screen.findByRole('heading', { name: /corba/i });
 
-    const {history} =  renderWithRouter(<App />, '/foods'); 
     const searchIcon = screen.getByTestId('search-top-btn');
-    
-    userEvent.click(searchIcon)
-    
+    userEvent.click(searchIcon);
+
     const searchBar = screen.getByTestId('search-input');
-    const searchBtn = screen.getByRole('button', {name:'Search'})
-    const radioByFirstLetter = screen.getByTestId('first-letter-search-radio')
-    
-    userEvent.click(radioByFirstLetter)
-    userEvent.type(searchBar, 'aaa')
-    userEvent.click(searchBtn)
+    const searchBtn = screen.getByRole('button', { name: 'Search' });
+    const radioByFirstLetter = screen.getByTestId('first-letter-search-radio');
 
-    expect(global.alert).toHaveBeenCalled()
+    userEvent.click(radioByFirstLetter);
+    userEvent.type(searchBar, 'aaa');
+    userEvent.click(searchBtn);
 
+    expect(global.alert).toHaveBeenCalled();
+  });
+});
 
+describe('Testa o componente Search Bar no Header da pagina de bebidas', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinks),
+    });
+  });
 
-  })
+  afterEach(() => jest.resetAllMocks());
 
-})
+  test('Testa se a busca é feita por nome', async () => {
+    const { history } = renderWithRouter(<App />, '/drinks');
+    await screen.findByRole('heading', { name: /gg/i });
 
-  describe('testa nos casos de busca de drinks', () => {
-    test('testa se a busca e feita por nome', async () => {
-      global.fetch =  jest.fn().mockResolvedValue({
-        json: jest.fn().mockResolvedValue(mocks.singleCaseDrinksData)
-      })
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
 
-      const {history} =  renderWithRouter(<App />, '/drinks'); 
+    global.fetch.mockReset();
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mocks.singleCaseDrinksData),
+    });
 
-      const searchIcon = screen.getByTestId('search-top-btn');
-      
-      userEvent.click(searchIcon);
-      
-      const radioByName = screen.getByTestId('name-search-radio')
-      const searchBtn = screen.getByRole('button', {name:'Search'})
-      const searchBar = screen.getByTestId('search-input');
-  
-      userEvent.click(radioByName)
-      userEvent.type(searchBar, 'sex on the beach')
-      userEvent.click(searchBtn)
-  
-       await waitFor(() => {
-        expect(fetch).toHaveBeenCalled()
-       }) 
+    const radioByName = screen.getByTestId('name-search-radio');
+    const searchBtn = screen.getByRole('button', { name: 'Search' });
+    const searchBar = screen.getByTestId('search-input');
 
-       const {location:{pathname}} = history
+    userEvent.click(radioByName);
+    userEvent.type(searchBar, 'sex on the beach');
+    userEvent.click(searchBtn);
 
-       console.log(pathname);
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
 
-       expect(pathname).toBe(`/drinks/${mocks.singleCaseDrinksData.drinks[0].idDrink}`)
-  
-
-    })
-
-
-  })
+    const { location: { pathname } } = history;
+    expect(pathname).toBe(`/drinks/${mocks.singleCaseDrinksData.drinks[0].idDrink}`);
+  });
+});

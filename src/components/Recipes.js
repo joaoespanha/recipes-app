@@ -1,31 +1,56 @@
+import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import Card from './Card';
 import SearchContext from '../context/SearchContext';
-import { getStartRecipes } from '../servicesAPI/requests';
+import CategoriesBtns from './CategoriesBtns';
+import { getStartRecipes, getReceipesCategories } from '../servicesAPI/requests';
 
-function Recipes() {
-  const { apiResponse, setApiResponse, currentCategory } = useContext(SearchContext);
+function Recipes({ recipesCategory }) {
+  const { apiResponse,
+    setApiResponse,
+    setCategoriesBtnFilters,
+  } = useContext(SearchContext);
+
   const maximumReceipes = 12;
 
   useEffect(() => {
-    const setRecipies = async () => {
-      const recipies = await getStartRecipes(currentCategory);
-      setApiResponse(recipies);
+    const setRecipes = async () => {
+      const recipes = await getStartRecipes(recipesCategory);
+      setApiResponse(recipes);
     };
-    setRecipies();
+    setRecipes();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const setCategories = async () => {
+      const categories = await getReceipesCategories(recipesCategory);
+
+      setCategoriesBtnFilters(categories);
+    };
+    setCategories();
   }, []);
 
   return (
     <main>
-      {
-        apiResponse.map((receipe, index) => (
-          (((index < maximumReceipes) && (apiResponse.length > 0)) && (<Card
-            key={ index }
-            index={ index }
-          />))))
-      }
+      <CategoriesBtns />
+      <section>
+        {
+          apiResponse?.map((recipe, index) => (
+            (index < maximumReceipes) && <Card
+              key={ index }
+              isMeal={ recipesCategory === 'foods' }
+              index={ index }
+              recipeData={ recipe }
+            />))
+        }
+      </section>
     </main>
   );
 }
+
+Recipes.propTypes = {
+  recipesCategory: PropTypes.string,
+}.isRequired;
 
 export default Recipes;
