@@ -46,6 +46,7 @@ export default function DrinkDetails() {
         src={ shownReceipe[0].strDrinkThumb }
         alt={ shownReceipe[0].strDrink }
         data-testid="recipe-photo"
+        width="100%"
       />
       <h3 data-testid="recipe-title">{ shownReceipe[0].strDrink }</h3>
       <h4 data-testid="recipe-category">{ shownReceipe[0].strAlcoholic }</h4>
@@ -59,7 +60,14 @@ export default function DrinkDetails() {
         }
       </ul>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
-      <Splide options={ { perPage: 2, rewind: true, arrows: false, pagination: false } }>
+      <Splide
+        options={ {
+          perPage: 1,
+          arrows: true,
+          pagination: true,
+          autoplay: false,
+        } }
+      >
         {recomendations.map((item, index) => (
           <SplideSlide
             key={ item.idMeal }

@@ -5,6 +5,7 @@ import '../style/RecipeDetails.css';
 import { getReceipeDetails } from '../servicesAPI/requests';
 import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
+import GetToLocalStorage from '../helpers/GetToLocalStorage';
 
 export default function RecipeDetails() {
   const { id } = useParams();
@@ -30,19 +31,27 @@ export default function RecipeDetails() {
     getDetails();
   }, []);
 
+  const checkDoneRecipe = () => {
+    const result = GetToLocalStorage('doneRecipes');
+    return result?.some((item) => item.id === id);
+  };
+
   return (
     <div>
       {
         category === 'foods' ? <FoodDetails /> : <DrinkDetails />
       }
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="startRecipeBtn"
-      >
-        Start Recipe
-
-      </button>
+      {
+        !checkDoneRecipe()
+      && (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="startRecipeBtn"
+        >
+          Start Recipe
+        </button>)
+      }
     </div>
   );
 }

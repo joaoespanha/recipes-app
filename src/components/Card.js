@@ -10,13 +10,13 @@ function Card({ index, isMeal, recipeData }) {
     >
       <div
         data-testid={ `${index}-recipe-card` }
-        style={ { width: '50vw', height: '50vw' } }
       >
         <img
           data-testid={ `${index}-card-img` }
           src={ isMeal
             ? (recipeData.strMealThumb) : (recipeData.strDrinkThumb) }
           alt={ isMeal ? (recipeData.strMeal) : (recipeData.strDrink) }
+          width="100%"
         />
         <h3
           data-testid={ `${index}-card-name` }

@@ -47,6 +47,7 @@ export default function FoodDetails() {
         src={ shownReceipe[0].strMealThumb }
         alt={ shownReceipe[0].strMeal }
         data-testid="recipe-photo"
+        width="100%"
       />
       <h3 data-testid="recipe-title">{ shownReceipe[0].strMeal }</h3>
       <h4 data-testid="recipe-category">{ shownReceipe[0].strCategory }</h4>
@@ -61,7 +62,7 @@ export default function FoodDetails() {
       </ul>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
       <iframe
-        width="668"
+        width="100%"
         height="376"
         src={ embedURL() }
         title={ shownReceipe[0].strMeal }
@@ -71,7 +72,14 @@ export default function FoodDetails() {
           + 'encrypted-media; gyroscope; picture-in-picture' }
         allowFullScreen
       />
-      <Splide options={ { perPage: 2, rewind: true, arrows: false, pagination: false } }>
+      <Splide
+        options={ {
+          perPage: 1,
+          arrows: true,
+          pagination: true,
+          autoplay: false,
+        } }
+      >
         {recomendations.map((item, index) => (
           <SplideSlide
             key={ item.idDrink }
