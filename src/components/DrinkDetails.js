@@ -1,8 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/splide.min.css';
 import ReceipeContext from '../context/ReceipeContext';
+import Card from './Card';
+import { getStartRecipes } from '../servicesAPI/requests';
 
 export default function DrinkDetails() {
   const { shownReceipe } = useContext(ReceipeContext);
+
+  const [recomendations, setRecomendations] = useState([]);
+
+  const getRecomendations = async () => {
+    const recomendationsData = await getStartRecipes('foods');
+    const results = recomendationsData.filter((recomen, index) => index < +'6');
+    setRecomendations(results);
+  };
+
+  useEffect(() => {
+    getRecomendations();
+  }, []);
 
   const getIngredientsOrMeasures = (strTag) => {
     const initialArray = Object.entries(shownReceipe[0]);
@@ -24,35 +40,39 @@ export default function DrinkDetails() {
     return instructions;
   };
 
-  concatIgredientsData();
-
   return (
     <div>
-      {/* Foto: strDrinkThumb
-          Nome: strDrink
-          Categoria: strCategory
-          Lista de ingredientes: strIngredient[index]
-          Instruções: strInstructions
-          Vídeo(comidas)
-          Receitas recomendadas
-      */}
       <img
         src={ shownReceipe[0].strDrinkThumb }
         alt={ shownReceipe[0].strDrink }
         data-testid="recipe-photo"
       />
       <h3 data-testid="recipe-title">{ shownReceipe[0].strDrink }</h3>
-      <h4 data-testid="recipe-category">{ shownReceipe[0].strCategory }</h4>
+      <h4 data-testid="recipe-category">{ shownReceipe[0].strAlcoholic }</h4>
+      <p>{}</p>
       <ul>
         {
           concatIgredientsData().map((instruction, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
               {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
-            </li>
-          ))
+            </li>))
         }
       </ul>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
+      <Splide options={ { perPage: 2, rewind: true, arrows: false, pagination: false } }>
+        {recomendations.map((item, index) => (
+          <SplideSlide
+            key={ item.idMeal }
+            data-testid={ `${index}-recomendation-title` }
+          >
+            <Card
+              index={ index }
+              isMeal
+              recipeData={ item }
+            />
+          </SplideSlide>
+        ))}
+      </Splide>
     </div>
   );
 }

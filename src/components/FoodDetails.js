@@ -1,8 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/splide.min.css';
 import ReceipeContext from '../context/ReceipeContext';
+import { getStartRecipes } from '../servicesAPI/requests';
+import Card from './Card';
 
 export default function FoodDetails() {
   const { shownReceipe } = useContext(ReceipeContext);
+
+  const [recomendations, setRecomendations] = useState([]);
+
+  const getRecomendations = async () => {
+    const recomendationsData = await getStartRecipes('drinks');
+    const results = recomendationsData.filter((recomen, index) => index < +'6');
+    setRecomendations(results);
+  };
+
+  useEffect(() => {
+    getRecomendations();
+  }, []);
 
   const getIngredientsOrMeasures = (strTag) => {
     const initialArray = Object.entries(shownReceipe[0]);
@@ -24,18 +40,9 @@ export default function FoodDetails() {
     return instructions;
   };
 
-  concatIgredientsData();
-
+  const embedURL = () => shownReceipe[0].strYoutube?.replace('watch?v=', 'embed/');
   return (
     <div>
-      {/* Foto: strDrinkThumb
-          Nome: strDrink
-          Categoria: strCategory
-          Lista de ingredientes: strIngredient[index]
-          Instruções: strInstructions
-          Vídeo(comidas)
-          Receitas recomendadas
-      */}
       <img
         src={ shownReceipe[0].strMealThumb }
         alt={ shownReceipe[0].strMeal }
@@ -56,13 +63,27 @@ export default function FoodDetails() {
       <iframe
         width="668"
         height="376"
-        src={ shownReceipe[0].strYoutube }
+        src={ embedURL() }
         title={ shownReceipe[0].strMeal }
         frameBorder="0"
+        data-testid="video"
         allow={ 'accelerometer; autoplay; clipboard-write;'
           + 'encrypted-media; gyroscope; picture-in-picture' }
         allowFullScreen
       />
+      <Splide options={ { perPage: 2, rewind: true, arrows: false, pagination: false } }>
+        {recomendations.map((item, index) => (
+          <SplideSlide
+            key={ item.idDrink }
+            data-testid={ `${index}-recomendation-title` }
+          >
+            <Card
+              index={ index }
+              recipeData={ item }
+            />
+          </SplideSlide>
+        ))}
+      </Splide>
     </div>
   );
 }

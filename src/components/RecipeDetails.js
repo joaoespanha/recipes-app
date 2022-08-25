@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
+import '../style/RecipeDetails.css';
 import { getReceipeDetails } from '../servicesAPI/requests';
 import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
@@ -34,6 +35,14 @@ export default function RecipeDetails() {
       {
         category === 'foods' ? <FoodDetails /> : <DrinkDetails />
       }
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="startRecipeBtn"
+      >
+        Start Recipe
+
+      </button>
     </div>
   );
 }

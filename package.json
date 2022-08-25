@@ -6,6 +6,8 @@
     "node": "16"
   },
   "dependencies": {
+    "@splidejs/react-splide": "^0.7.8",
+    "@splidejs/splide": "^4.0.7",
     "bootstrap": "^4.5.3",
     "clipboard-copy": "^4.0.1",
     "prop-types": "^15.7.2",
