@@ -1,16 +1,18 @@
 import React, { useEffect, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import '../style/RecipeDetails.css';
 import { getReceipeDetails } from '../servicesAPI/requests';
 import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
+import SetToLocalStorage from '../helpers/SetToLocalStorage';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
-  const { setShownReceipe } = useContext(ReceipeContext);
+  const { shownReceipe, setShownReceipe } = useContext(ReceipeContext);
+  const history = useHistory();
 
   const setCategory = () => {
     const { pathname } = location;
@@ -36,6 +38,45 @@ export default function RecipeDetails() {
     return result?.some((item) => item.id === id);
   };
 
+  const checkInProgressRecipes = () => {
+    const inReturnResult = GetToLocalStorage('inProgressRecipes');
+    if (inReturnResult) {
+      const cocktailsIds = inReturnResult.cocktails
+        ? Object.keys(inReturnResult.cocktails)
+        : [];
+      const mealsIds = inReturnResult.meals
+        ? Object.keys(inReturnResult.meals)
+        : [];
+      const recipesIds = [...cocktailsIds, ...mealsIds];
+      return recipesIds.some((itemId) => itemId === id);
+    }
+  };
+
+  const redirectToRecipeInProgress = () => {
+    if (category === 'foods') {
+      history.push(`/foods/${id}/in-progress`);
+    }
+    history.push(`/drinks/${id}/in-progress`);
+  };
+
+  const setFavorite = () => {
+    const getFavorite = GetToLocalStorage('favoriteRecipes');
+    const favoriteObject = {
+      id,
+      type: category,
+      nationality: shownReceipe[0]?.strArea ?? '',
+      category: shownReceipe[0].strCategory,
+      alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
+      name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
+      image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
+    };
+    if (getFavorite) {
+      SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject]);
+    } else {
+      SetToLocalStorage('favoriteRecipes', [favoriteObject]);
+    }
+  };
+
   return (
     <div>
       {
@@ -48,10 +89,26 @@ export default function RecipeDetails() {
           type="button"
           data-testid="start-recipe-btn"
           className="startRecipeBtn"
+          onClick={ redirectToRecipeInProgress }
         >
-          Start Recipe
+          {checkInProgressRecipes()
+            ? 'Continue Recipe'
+            : 'Start Recipe'}
         </button>)
       }
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ setFavorite }
+      >
+        Favorite
+      </button>
     </div>
   );
 }

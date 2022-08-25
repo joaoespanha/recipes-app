@@ -43,8 +43,8 @@ export default function DrinkDetails() {
   return (
     <div>
       <img
-        src={ shownReceipe[0].strDrinkThumb }
-        alt={ shownReceipe[0].strDrink }
+        src={ shownReceipe[0]?.strDrinkThumb }
+        alt={ shownReceipe[0]?.strDrink }
         data-testid="recipe-photo"
         width="100%"
       />
