@@ -15,7 +15,7 @@ function HomeFoods() {
   return (
     <div>
       <Header title="Foods" />
-      <Recipes recipesCategory="foods" />
+      <Recipes />
       <Footer />
     </div>
   );

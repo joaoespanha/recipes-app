@@ -17,3 +17,7 @@ export const drinkCategories = 'https://www.thecocktaildb.com/api/json/v1/1/list
 export const currentFoodCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
 export const currentDrinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+
+export const mealDetails = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+export const drinkDetails = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
