@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import '../style/RecipeDetails.css';
@@ -7,15 +7,17 @@ import DrinkDetails from './DrinkDetails';
 import FoodDetails from './FoodDetails';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const { shownReceipe, setShownReceipe } = useContext(ReceipeContext);
+  const [copyMessage, setCopyMessage] = useState(false);
   const history = useHistory();
+  const { pathname } = location;
 
   const setCategory = () => {
-    const { pathname } = location;
     const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
     // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
@@ -81,14 +83,24 @@ export default function RecipeDetails() {
     // console.log(GetToLocalStorage('favoriteRecipes'));
   };
 
+  const copyShare = (text) => {
+    navigator.clipboard.writeText(text);
+    setCopyMessage(true);
+  };
+
   return (
     <div>
       { category === 'foods' ? <FoodDetails /> : <DrinkDetails /> }
+      { copyMessage && <span>Link copied!</span>}
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => copyShare(pathname) }
       >
-        Share
+        <img
+          src={ shareIcon }
+          alt="share icon"
+        />
       </button>
       <button
         type="button"
