@@ -17,7 +17,7 @@ export default function RecipeDetails() {
   const setCategory = () => {
     const { pathname } = location;
     const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
-    console.log('category', returnedCategory[0]);
+    // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
   };
 
@@ -25,12 +25,13 @@ export default function RecipeDetails() {
 
   const getDetails = async () => {
     const receipe = await getReceipeDetails(category, id);
-    console.log('receipe', receipe);
+    // console.log('receipe', receipe);
     setShownReceipe(receipe);
   };
 
   useEffect(() => {
     getDetails();
+    // eslint-disable-next-line
   }, []);
 
   const checkDoneRecipe = () => {
@@ -55,47 +56,34 @@ export default function RecipeDetails() {
   const redirectToRecipeInProgress = () => {
     if (category === 'foods') {
       history.push(`/foods/${id}/in-progress`);
+    } else {
+      history.push(`/drinks/${id}/in-progress`);
     }
-    history.push(`/drinks/${id}/in-progress`);
   };
 
   const setFavorite = () => {
     const getFavorite = GetToLocalStorage('favoriteRecipes');
+    const isAlreadyFavorite = getFavorite?.some((item) => item.id === id);
     const favoriteObject = {
       id,
-      type: category,
+      type: (category === 'foods') ? 'food' : 'drink',
       nationality: shownReceipe[0]?.strArea ?? '',
       category: shownReceipe[0].strCategory,
       alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
       name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
       image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
     };
-    if (getFavorite) {
+    if (getFavorite?.length > 0 && !isAlreadyFavorite) {
       SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject]);
-    } else {
+    } else if (!isAlreadyFavorite) {
       SetToLocalStorage('favoriteRecipes', [favoriteObject]);
     }
+    // console.log(GetToLocalStorage('favoriteRecipes'));
   };
 
   return (
     <div>
-      {
-        category === 'foods' ? <FoodDetails /> : <DrinkDetails />
-      }
-      {
-        !checkDoneRecipe()
-      && (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="startRecipeBtn"
-          onClick={ redirectToRecipeInProgress }
-        >
-          {checkInProgressRecipes()
-            ? 'Continue Recipe'
-            : 'Start Recipe'}
-        </button>)
-      }
+      { category === 'foods' ? <FoodDetails /> : <DrinkDetails /> }
       <button
         type="button"
         data-testid="share-btn"
@@ -109,6 +97,17 @@ export default function RecipeDetails() {
       >
         Favorite
       </button>
+      { !checkDoneRecipe() && (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="startRecipeBtn"
+          onClick={ redirectToRecipeInProgress }
+        >
+          { checkInProgressRecipes()
+            ? 'Continue Recipe'
+            : 'Start Recipe' }
+        </button>) }
     </div>
   );
 }

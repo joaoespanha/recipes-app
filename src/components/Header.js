@@ -21,8 +21,7 @@ export default function Header({ title }) {
           alt="Profile icon"
         />
       </Link>
-      {(title === 'Drinks' || title === 'Foods')
-      && (
+      { (title === 'Drinks' || title === 'Foods') && (
         <button
           onClick={ toggleSearchBar }
           type="button"
@@ -33,9 +32,8 @@ export default function Header({ title }) {
             alt="Search icon"
           />
         </button>
-      )}
-      { showBar
-      && <SearchBar /> }
+      ) }
+      { showBar && <SearchBar /> }
       <h2 data-testid="page-title">{title}</h2>
     </div>
   );

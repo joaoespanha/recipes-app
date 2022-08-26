@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Card({ index, isMeal, recipeData }) {
   return (
     <Link
-      data-testid={ `${index}-recomendation-card` }
+      data-testid={ `${index}-recomendation-title` }
       to={ isMeal ? `/foods/${recipeData.idMeal}` : `/drinks/${recipeData.idDrink}` }
     >
       <div
@@ -16,7 +16,7 @@ function Card({ index, isMeal, recipeData }) {
           src={ isMeal
             ? (recipeData.strMealThumb) : (recipeData.strDrinkThumb) }
           alt={ isMeal ? (recipeData.strMeal) : (recipeData.strDrink) }
-          width="100%"
+          width="60%"
         />
         <h3
           data-testid={ `${index}-card-name` }
