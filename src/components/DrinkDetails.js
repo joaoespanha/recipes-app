@@ -60,10 +60,11 @@ export default function DrinkDetails() {
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
       <Splide
         options={ {
-          perPage: 1,
+          perPage: 2,
           arrows: true,
           pagination: true,
           autoplay: false,
+          gap: '20px',
         } }
       >
         { recomendations.map((item, index) => (

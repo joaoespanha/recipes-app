@@ -72,17 +72,17 @@ export default function FoodDetails() {
       />
       <Splide
         options={ {
-          perPage: 1,
+          perPage: 2,
           arrows: true,
           pagination: true,
           autoplay: false,
+          gap: '20px',
         } }
       >
         { recomendations.map((item, index) => (
           <SplideSlide
             key={ item.idDrink }
             data-testid={ `${index}-recomendation-card` }
-            // className="card"
           >
             <Card
               index={ index }

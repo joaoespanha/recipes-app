@@ -16,7 +16,7 @@ function Card({ index, isMeal, recipeData }) {
           src={ isMeal
             ? (recipeData.strMealThumb) : (recipeData.strDrinkThumb) }
           alt={ isMeal ? (recipeData.strMeal) : (recipeData.strDrink) }
-          width="60%"
+          width="100%"
         />
         <h3
           data-testid={ `${index}-card-name` }
