@@ -8,12 +8,16 @@ import FoodDetails from './FoodDetails';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
   const { shownReceipe, setShownReceipe } = useContext(ReceipeContext);
   const [copyMessage, setCopyMessage] = useState(false);
+  const [isAlreadyFavorite, setIsAlreadyFavorite] = useState();
+
   const history = useHistory();
   const { pathname } = location;
 
@@ -31,10 +35,7 @@ export default function RecipeDetails() {
     setShownReceipe(receipe);
   };
 
-  useEffect(() => {
-    getDetails();
-    // eslint-disable-next-line
-  }, []);
+  const favorites = () => GetToLocalStorage('favoriteRecipes');
 
   const checkDoneRecipe = () => {
     const result = GetToLocalStorage('doneRecipes');
@@ -64,8 +65,9 @@ export default function RecipeDetails() {
   };
 
   const setFavorite = () => {
-    const getFavorite = GetToLocalStorage('favoriteRecipes');
-    const isAlreadyFavorite = getFavorite?.some((item) => item.id === id);
+    const getFavorite = favorites();
+    const isFavorite = getFavorite?.some((item) => item.id === id);
+
     const favoriteObject = {
       id,
       type: (category === 'foods') ? 'food' : 'drink',
@@ -75,18 +77,39 @@ export default function RecipeDetails() {
       name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
       image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
     };
-    if (getFavorite?.length > 0 && !isAlreadyFavorite) {
+
+    if (getFavorite?.length > 0 && !isFavorite) {
       SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject]);
-    } else if (!isAlreadyFavorite) {
+    } else if (!isFavorite) {
       SetToLocalStorage('favoriteRecipes', [favoriteObject]);
+    } else if (isFavorite) {
+      const filtredLS = getFavorite.filter((recipe) => recipe.id !== id);
+      SetToLocalStorage('favoriteRecipes', filtredLS);
     }
+
+    setIsAlreadyFavorite(!isAlreadyFavorite);
     // console.log(GetToLocalStorage('favoriteRecipes'));
   };
 
-  const copyShare = (text) => {
-    navigator.clipboard.writeText(text);
+  const copyShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    // console.log(window.location.href);
     setCopyMessage(true);
   };
+
+  const findSrc = () => {
+    const src = isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon;
+
+    return src;
+  };
+
+  useEffect(() => {
+    const getFavorite = favorites();
+    const isFavorite = getFavorite?.some((item) => item.id === id);
+    getDetails();
+    setIsAlreadyFavorite(isFavorite);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
@@ -95,7 +118,7 @@ export default function RecipeDetails() {
       <button
         type="button"
         data-testid="share-btn"
-        onClick={ () => copyShare(pathname) }
+        onClick={ copyShare }
       >
         <img
           src={ shareIcon }
@@ -104,10 +127,9 @@ export default function RecipeDetails() {
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ setFavorite }
       >
-        Favorite
+        <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
       </button>
       { !checkDoneRecipe() && (
         <button
