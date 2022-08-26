@@ -36,7 +36,7 @@ export default function FoodDetails() {
       ingredient,
       measure: measures[index],
     }));
-    console.log(instructions);
+    // console.log(instructions);
     return instructions;
   };
 
@@ -52,13 +52,11 @@ export default function FoodDetails() {
       <h3 data-testid="recipe-title">{ shownReceipe[0].strMeal }</h3>
       <h4 data-testid="recipe-category">{ shownReceipe[0].strCategory }</h4>
       <ul>
-        {
-          concatIgredientsData().map((instruction, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
-            </li>
-          ))
-        }
+        { concatIgredientsData().map((instruction, index) => (
+          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
+          </li>
+        )) }
       </ul>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
       <iframe
@@ -74,23 +72,24 @@ export default function FoodDetails() {
       />
       <Splide
         options={ {
-          perPage: 1,
+          perPage: 2,
           arrows: true,
           pagination: true,
           autoplay: false,
+          gap: '20px',
         } }
       >
-        {recomendations.map((item, index) => (
+        { recomendations.map((item, index) => (
           <SplideSlide
             key={ item.idDrink }
-            data-testid={ `${index}-recomendation-title` }
+            data-testid={ `${index}-recomendation-card` }
           >
             <Card
               index={ index }
               recipeData={ item }
             />
           </SplideSlide>
-        ))}
+        )) }
       </Splide>
     </div>
   );

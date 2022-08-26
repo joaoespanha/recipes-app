@@ -43,8 +43,8 @@ export default function DrinkDetails() {
   return (
     <div>
       <img
-        src={ shownReceipe[0].strDrinkThumb }
-        alt={ shownReceipe[0].strDrink }
+        src={ shownReceipe[0]?.strDrinkThumb }
+        alt={ shownReceipe[0]?.strDrink }
         data-testid="recipe-photo"
         width="100%"
       />
@@ -52,26 +52,25 @@ export default function DrinkDetails() {
       <h4 data-testid="recipe-category">{ shownReceipe[0].strAlcoholic }</h4>
       <p>{}</p>
       <ul>
-        {
-          concatIgredientsData().map((instruction, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
-            </li>))
-        }
+        { concatIgredientsData().map((instruction, index) => (
+          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
+          </li>)) }
       </ul>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
       <Splide
         options={ {
-          perPage: 1,
+          perPage: 2,
           arrows: true,
           pagination: true,
           autoplay: false,
+          gap: '20px',
         } }
       >
-        {recomendations.map((item, index) => (
+        { recomendations.map((item, index) => (
           <SplideSlide
             key={ item.idMeal }
-            data-testid={ `${index}-recomendation-title` }
+            data-testid={ `${index}-recomendation-card` }
           >
             <Card
               index={ index }
@@ -79,7 +78,7 @@ export default function DrinkDetails() {
               recipeData={ item }
             />
           </SplideSlide>
-        ))}
+        )) }
       </Splide>
     </div>
   );

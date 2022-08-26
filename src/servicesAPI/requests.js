@@ -81,14 +81,13 @@ export async function getCategoryReceipes(currentCategory, clickedBtn) {
     complementURL = `${URL.currentDrinkCategory}${clickedBtn}`;
   }
   // console.log('url', complementURL);
-
   const response = await fetch(complementURL);
   const data = await response.json();
   //  console.log(data);
   const selectedCategoryData = data?.meals ?? data.drinks;
-
   return selectedCategoryData;
 }
+
 export async function getReceipeDetails(currentCategory, id) {
   let complementURL = '';
   if (currentCategory === 'foods') {
@@ -97,11 +96,9 @@ export async function getReceipeDetails(currentCategory, id) {
     complementURL = `${URL.drinkDetails}${id}`;
   }
   // console.log('url', complementURL);
-
   const response = await fetch(complementURL);
   const data = await response.json();
   // console.log(data);
   const selectedReceipeData = data?.meals ?? data.drinks;
-
   return selectedReceipeData;
 }

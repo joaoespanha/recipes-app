@@ -36,6 +36,7 @@ function Recipes() {
       setCategoriesBtnFilters(categories);
     };
     setCategories();
+    // eslint-disable-next-line
   }, []);
 
   const maximumReceipes = 12;
@@ -44,15 +45,13 @@ function Recipes() {
     <main>
       <CategoriesBtns />
       <section>
-        {
-          apiResponse?.map((recipe, index) => (
-            (index < maximumReceipes) && <Card
-              key={ index }
-              isMeal={ recipesCategory === 'foods' }
-              index={ index }
-              recipeData={ recipe }
-            />))
-        }
+        { apiResponse?.map((recipe, index) => (
+          (index < maximumReceipes) && <Card
+            key={ index }
+            isMeal={ recipesCategory === 'foods' }
+            index={ index }
+            recipeData={ recipe }
+          />)) }
       </section>
     </main>
   );
