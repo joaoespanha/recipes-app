@@ -5,7 +5,7 @@ import ReceipeContext from './ReceipeContext';
 function ReceipeProvider({ children }) {
   const [shownReceipe, setShownReceipe] = useState([{}]);
   const [doneRecipeButton, setDoneRecipeButton] = useState(true);
-  const [instructionsDone, setInstructionsDone] = useState([]);
+  const [doneRecipesList, setDoneRecipesList] = useState([]);
 
   return (
     <ReceipeContext.Provider
@@ -14,8 +14,8 @@ function ReceipeProvider({ children }) {
         setShownReceipe,
         doneRecipeButton,
         setDoneRecipeButton,
-        instructionsDone,
-        setInstructionsDone,
+        doneRecipesList,
+        setDoneRecipesList,
       } }
     >
       { children }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
@@ -7,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function BtnsMenu() {
+export default function BtnsMenu({ index }) {
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
@@ -19,7 +20,6 @@ export default function BtnsMenu() {
 
   const setCategory = () => {
     const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
-    // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
   };
 
@@ -47,7 +47,6 @@ export default function BtnsMenu() {
     }
 
     setIsAlreadyFavorite(!isAlreadyFavorite);
-    // console.log(GetToLocalStorage('favoriteRecipes'));
   };
 
   const findSrc = () => (isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon);
@@ -63,6 +62,8 @@ export default function BtnsMenu() {
     }
     setCopyMessage(true);
   };
+
+  const checkURL = () => pathname.includes('done-recipes');
 
   useEffect(() => {
     const getFavorite = favorites();
@@ -81,15 +82,24 @@ export default function BtnsMenu() {
       >
         <img
           src={ shareIcon }
+          data-testid={ `${index}-horizontal-share-btn` }
           alt="share icon"
         />
       </button>
-      <button
-        type="button"
-        onClick={ setFavorite }
-      >
-        <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
-      </button>
+      {
+        !checkURL() && (
+          <button
+            type="button"
+            onClick={ setFavorite }
+          >
+            <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
+          </button>
+        )
+      }
     </div>
   );
 }
+
+BtnsMenu.propTypes = {
+  index: PropTypes.number,
+}.isRequired;
