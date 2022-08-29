@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
-import SetToLocalStorage from '../helpers/SetToLocalStorage'; 
-// falta implementar a funcao da linha 68 com a lógica do local storage para as receitas serem salvas e checked
+import SetToLocalStorage from '../helpers/SetToLocalStorage';
 
 export default function RecipeInstructions() {
   const { shownReceipe } = useContext(ReceipeContext);
   const location = useLocation();
   const { pathname } = location;
+  const { id } = useParams();
   const [instructionsDone, setInstructionsDone] = useState([]);
 
   const setCategory = () => {
@@ -16,21 +16,24 @@ export default function RecipeInstructions() {
     // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
   };
-  const id = shownReceipe[0]?.idMeal ?? shownReceipe[0].idDrink;
+
   const category = setCategory();
 
   const getRecipeStatus = () => {
     const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
     const recipeStatus = GetToLocalStorage('inProgressRecipes')?.[currCategory];
-    if (recipeStatus) setInstructionsDone(recipeStatus[id]);
+    if (recipeStatus && id) setInstructionsDone(recipeStatus[id]);
   };
 
-  const isChecked = (value) => instructionsDone.some((instr) => instr === value);
+  const isChecked = (value) => instructionsDone?.some((instr) => instr === value);
 
-  useEffect(() => {
-    getRecipeStatus();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getPrevStorage = () => {
+    const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
+    const prevStorage = GetToLocalStorage('inProgressRecipes');
+    if (prevStorage && prevStorage[currCategory][id]) {
+      setInstructionsDone(prevStorage[currCategory][id]);
+    }
+  };
 
   const getIngredientsOrMeasures = (strTag) => {
     const initialArray = Object.entries(shownReceipe[0]);
@@ -66,18 +69,36 @@ export default function RecipeInstructions() {
     }
   };
 
-  // const setInstructionsToStorage = () => {
-  //   const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
-  //   const prevStorage = GetToLocalStorage('inProgressRecipes');
-  //   prevStorage[currCategory][id] = instructionsDone;
-
-  //   if (prevStorage) {
-  //     SetToLocalStorage(prevStorage);
-  //   }
-  // }; 
+  const setInstructionsToStorage = () => {
+    const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
+    const prevStorage = GetToLocalStorage('inProgressRecipes');
+    if (prevStorage) {
+      prevStorage[currCategory][id] = instructionsDone;
+      SetToLocalStorage('inProgressRecipes', prevStorage);
+    } else if (!prevStorage && currCategory === 'cocktails' && id) {
+      const newStorage = {
+        cocktails: { [id]: instructionsDone },
+        meals: {},
+      };
+      SetToLocalStorage('inProgressRecipes', newStorage);
+    } else if (!prevStorage && currCategory === 'meals' && id) {
+      const newStorage = {
+        cocktails: {},
+        meals: { [id]: instructionsDone },
+      };
+      SetToLocalStorage('inProgressRecipes', newStorage);
+    }
+  };
 
   useEffect(() => {
-    // setInstructionsToStorage();
+    getRecipeStatus();
+    getPrevStorage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setInstructionsToStorage();
+    // eslint-disable-next-line
   }, [instructionsDone]);
 
   return (
@@ -112,9 +133,9 @@ export default function RecipeInstructions() {
                 name={ id }
                 value={ `${instruction.ingredient} ${instruction?.measure ?? ''}` }
                 onChange={ toggleCheckbox }
-                checked={ isChecked(
-                  `${instruction.ingredient} ${instruction?.measure ?? ''}`,
-                ) }
+                checked={
+                  isChecked(`${instruction.ingredient} ${instruction?.measure ?? ''}`)
+                }
               />
               {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
             </label>
