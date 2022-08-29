@@ -18,10 +18,9 @@ function Recipes() {
     return returnedCategory[0];
   };
 
-  const recipesCategory = setCategory();
-
   useEffect(() => {
     const setRecipes = async () => {
+      const recipesCategory = setCategory();
       const recipes = await getStartRecipes(recipesCategory);
       setApiResponse(recipes);
     };
@@ -31,8 +30,8 @@ function Recipes() {
 
   useEffect(() => {
     const setCategories = async () => {
+      const recipesCategory = setCategory();
       const categories = await getReceipesCategories(recipesCategory);
-
       setCategoriesBtnFilters(categories);
     };
     setCategories();
@@ -48,7 +47,7 @@ function Recipes() {
         { apiResponse?.map((recipe, index) => (
           (index < maximumReceipes) && <Card
             key={ index }
-            isMeal={ recipesCategory === 'foods' }
+            isMeal={ setCategory() === 'foods' }
             index={ index }
             recipeData={ recipe }
           />)) }

@@ -23,14 +23,13 @@ export default function BtnsMenu() {
     return returnedCategory[0];
   };
 
-  const category = setCategory();
   const setFavorite = () => {
     const getFavorite = favorites();
     const isFavorite = getFavorite?.some((item) => item.id === id);
 
     const favoriteObject = {
       id,
-      type: (category === 'foods') ? 'food' : 'drink',
+      type: (setCategory() === 'foods') ? 'food' : 'drink',
       nationality: shownReceipe[0]?.strArea ?? '',
       category: shownReceipe[0].strCategory,
       alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
@@ -50,22 +49,22 @@ export default function BtnsMenu() {
     setIsAlreadyFavorite(!isAlreadyFavorite);
     // console.log(GetToLocalStorage('favoriteRecipes'));
   };
-  const findSrc = () => {
-    const src = isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon;
 
-    return src;
-  };
+  const findSrc = () => (isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon);
+
   const copyShare = () => {
     navigator.clipboard.writeText(window.location.href);
     // console.log(window.location.href);
     setCopyMessage(true);
   };
+
   useEffect(() => {
     const getFavorite = favorites();
     const isFavorite = getFavorite?.some((item) => item.id === id);
     setIsAlreadyFavorite(isFavorite);
     // eslint-disable-next-line
   }, []);
+
   return (
     <div style={ { marginLeft: '100px' } }>
       { copyMessage && <span>Link copied!</span>}

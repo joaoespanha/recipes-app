@@ -21,7 +21,6 @@ export default function CategoriesBtns() {
     const receipes = await getCategoryReceipes(currentCategory, target.value);
     console.log(receipes);
     if (isFiltred) {
-      // sob revisao
       await setRecipes();
     } else {
       setApiResponse(receipes);
@@ -36,23 +35,19 @@ export default function CategoriesBtns() {
 
   return (
     <div>
-      {
-        categoriesBtnFilters.map((btn, index) => (
-
-          (index < maximumReceipes) && (
-            <button
-              type="button"
-              onClick={ toogleCategory }
-              key={ index }
-              data-testid={ `${btn.strCategory}-category-filter` }
-              value={ btn.strCategory }
-            >
-              {btn.strCategory}
-
-            </button>
-          )
-        ))
-      }
+      { categoriesBtnFilters.map((btn, index) => (
+        (index < maximumReceipes) && (
+          <button
+            type="button"
+            onClick={ toogleCategory }
+            key={ index }
+            data-testid={ `${btn.strCategory}-category-filter` }
+            value={ btn.strCategory }
+          >
+            {btn.strCategory}
+          </button>
+        )
+      )) }
       <button
         type="button"
         onClick={ clearFilters }

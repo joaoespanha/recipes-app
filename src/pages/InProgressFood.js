@@ -5,7 +5,6 @@ export default function InProgressFood() {
   return (
     <div>
       <RecipeInProgress />
-
     </div>
   );
 }

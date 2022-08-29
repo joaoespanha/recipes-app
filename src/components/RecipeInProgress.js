@@ -8,7 +8,6 @@ import { getReceipeDetails } from '../servicesAPI/requests';
 export default function RecipeInProgress() {
   const { id } = useParams();
   const location = useLocation();
-
   const { pathname } = location;
   const { setShownReceipe } = useContext(ReceipeContext);
 
@@ -21,10 +20,9 @@ export default function RecipeInProgress() {
     // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
   };
-  const category = setCategory();
 
   const getDetails = async () => {
-    const receipe = await getReceipeDetails(category, id);
+    const receipe = await getReceipeDetails(setCategory(), id);
     // console.log('receipe', receipe);
     setShownReceipe(receipe);
   };

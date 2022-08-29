@@ -10,7 +10,7 @@ export default function DrinkDetails() {
 
   const getRecomendations = async () => {
     const recomendationsData = await getStartRecipes('foods');
-    const results = recomendationsData.filter((recomen, index) => index < +'6');
+    const results = recomendationsData.filter((_recomen, index) => index < +'6');
     setRecomendations(results);
   };
 

@@ -11,7 +11,6 @@ import BtnsMenu from './BtnsMenu';
 export default function RecipeDetails() {
   const { id } = useParams();
   const location = useLocation();
-
   const { pathname } = location;
   const history = useHistory();
   const { setShownReceipe } = useContext(ReceipeContext);
@@ -22,10 +21,8 @@ export default function RecipeDetails() {
     return returnedCategory[0];
   };
 
-  const category = setCategory();
-
   const getDetails = async () => {
-    const receipe = await getReceipeDetails(category, id);
+    const receipe = await getReceipeDetails(setCategory(), id);
     // console.log('receipe', receipe);
     setShownReceipe(receipe);
   };
@@ -50,7 +47,7 @@ export default function RecipeDetails() {
   };
 
   const redirectToRecipeInProgress = () => {
-    if (category === 'foods') {
+    if (setCategory() === 'foods') {
       history.push(`/foods/${id}/in-progress`);
     } else {
       history.push(`/drinks/${id}/in-progress`);
@@ -64,7 +61,7 @@ export default function RecipeDetails() {
 
   return (
     <div>
-      { category === 'foods' ? <FoodDetails /> : <DrinkDetails /> }
+      { setCategory() === 'foods' ? <FoodDetails /> : <DrinkDetails /> }
       <BtnsMenu />
       { !checkDoneRecipe() && (
         <button

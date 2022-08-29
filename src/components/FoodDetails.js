@@ -8,7 +8,6 @@ import RecipeInstructions from './RecipeInstructions';
 
 export default function FoodDetails() {
   const { shownReceipe } = useContext(ReceipeContext);
-
   const [recomendations, setRecomendations] = useState([]);
 
   const getRecomendations = async () => {
@@ -22,6 +21,7 @@ export default function FoodDetails() {
   }, []);
 
   const embedURL = () => shownReceipe[0].strYoutube?.replace('watch?v=', 'embed/');
+
   return (
     <div>
       <RecipeInstructions />

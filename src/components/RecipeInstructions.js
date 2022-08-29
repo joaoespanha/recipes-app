@@ -17,23 +17,34 @@ export default function RecipeInstructions() {
     return returnedCategory[0];
   };
 
-  const category = setCategory();
-
   const getRecipeStatus = () => {
-    const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
+    const currCategory = setCategory() === 'drinks' ? 'cocktails' : 'meals';
     const recipeStatus = GetToLocalStorage('inProgressRecipes')?.[currCategory];
-    if (recipeStatus && id) setInstructionsDone(recipeStatus[id]);
+    if (recipeStatus) setInstructionsDone(recipeStatus[id]);
   };
 
-  const isChecked = (value) => instructionsDone?.some((instr) => instr === value);
-
-  const getPrevStorage = () => {
-    const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
+  const setInstructionsToStorage = () => {
+    const currCategory = setCategory() === 'drinks' ? 'cocktails' : 'meals';
     const prevStorage = GetToLocalStorage('inProgressRecipes');
-    if (prevStorage && prevStorage[currCategory][id]) {
-      setInstructionsDone(prevStorage[currCategory][id]);
+    if (prevStorage) {
+      prevStorage[currCategory][id] = instructionsDone;
+      SetToLocalStorage('inProgressRecipes', prevStorage);
+    } else if (!prevStorage && currCategory === 'cocktails') {
+      const newStorage = {
+        cocktails: { [id]: instructionsDone },
+        meals: {},
+      };
+      SetToLocalStorage('inProgressRecipes', newStorage);
+    } else if (!prevStorage && currCategory === 'meals') {
+      const newStorage = {
+        cocktails: {},
+        meals: { [id]: instructionsDone },
+      };
+      SetToLocalStorage('inProgressRecipes', newStorage);
     }
   };
+
+  const checkUrl = () => pathname.includes('in-progress');
 
   const getIngredientsOrMeasures = (strTag) => {
     const initialArray = Object.entries(shownReceipe[0]);
@@ -43,6 +54,7 @@ export default function RecipeInstructions() {
     // console.log(filteredIngredients);
     return filteredIngredients;
   };
+
   const concatIgredientsData = () => {
     const ingredients = getIngredientsOrMeasures('strIngredient');
     const measures = getIngredientsOrMeasures('strMeasure');
@@ -54,10 +66,7 @@ export default function RecipeInstructions() {
     return instructions;
   };
 
-  const checkUrl = () => {
-    const isInProgressUrl = pathname.includes('in-progress');
-    return isInProgressUrl;
-  };
+  const isChecked = (value) => instructionsDone?.some((instr) => instr === value);
 
   const toggleCheckbox = ({ target: { value } }) => {
     if (isChecked(value)) {
@@ -69,30 +78,8 @@ export default function RecipeInstructions() {
     }
   };
 
-  const setInstructionsToStorage = () => {
-    const currCategory = category === 'drinks' ? 'cocktails' : 'meals';
-    const prevStorage = GetToLocalStorage('inProgressRecipes');
-    if (prevStorage) {
-      prevStorage[currCategory][id] = instructionsDone;
-      SetToLocalStorage('inProgressRecipes', prevStorage);
-    } else if (!prevStorage && currCategory === 'cocktails' && id) {
-      const newStorage = {
-        cocktails: { [id]: instructionsDone },
-        meals: {},
-      };
-      SetToLocalStorage('inProgressRecipes', newStorage);
-    } else if (!prevStorage && currCategory === 'meals' && id) {
-      const newStorage = {
-        cocktails: {},
-        meals: { [id]: instructionsDone },
-      };
-      SetToLocalStorage('inProgressRecipes', newStorage);
-    }
-  };
-
   useEffect(() => {
     getRecipeStatus();
-    getPrevStorage();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -152,9 +139,7 @@ export default function RecipeInstructions() {
             </li>
           )) }
         </ul>)}
-
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
-
     </div>
   );
 }
