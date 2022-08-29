@@ -1,15 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
 
 export default function RecipeInstructions() {
-  const { shownReceipe } = useContext(ReceipeContext);
+  const {
+    shownReceipe,
+    instructionsDone,
+    setInstructionsDone } = useContext(ReceipeContext);
   const location = useLocation();
   const { pathname } = location;
   const { id } = useParams();
-  const [instructionsDone, setInstructionsDone] = useState([]);
 
   const setCategory = () => {
     const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
@@ -29,13 +31,17 @@ export default function RecipeInstructions() {
     if (prevStorage) {
       prevStorage[currCategory][id] = instructionsDone;
       SetToLocalStorage('inProgressRecipes', prevStorage);
-    } else if (!prevStorage && currCategory === 'cocktails') {
+    } else if (
+      !prevStorage && currCategory === 'cocktails'
+      && instructionsDone.length > 0) {
       const newStorage = {
         cocktails: { [id]: instructionsDone },
         meals: {},
       };
       SetToLocalStorage('inProgressRecipes', newStorage);
-    } else if (!prevStorage && currCategory === 'meals') {
+    } else if (
+      !prevStorage && currCategory === 'meals'
+      && instructionsDone.length > 0) {
       const newStorage = {
         cocktails: {},
         meals: { [id]: instructionsDone },
@@ -51,7 +57,6 @@ export default function RecipeInstructions() {
     const filteredIngredients = initialArray
       .filter((array) => array[0].startsWith(strTag) && array[1])
       .map((ingredient) => ingredient[1]);
-    // console.log(filteredIngredients);
     return filteredIngredients;
   };
 

@@ -53,8 +53,14 @@ export default function BtnsMenu() {
   const findSrc = () => (isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon);
 
   const copyShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    // console.log(window.location.href);
+    const URL = window.location.href;
+    const inProgressIndex = URL.indexOf('/in-progress');
+    const formatedURL = URL.substring(0, inProgressIndex);
+    if (inProgressIndex < 0) {
+      navigator.clipboard.writeText(URL);
+    } else {
+      navigator.clipboard.writeText(formatedURL);
+    }
     setCopyMessage(true);
   };
 
