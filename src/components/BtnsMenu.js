@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
@@ -7,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function BtnsMenu() {
+export default function BtnsMenu({ index, idRecipe, type }) {
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
@@ -19,35 +20,32 @@ export default function BtnsMenu() {
 
   const setCategory = () => {
     const returnedCategory = pathname.match(/drinks/i) ?? pathname.match(/foods/i);
-    // console.log('category', returnedCategory[0]);
     return returnedCategory[0];
   };
+
+  const favoriteObject = () => ({
+    id,
+    type: (setCategory() === 'foods') ? 'food' : 'drink',
+    nationality: shownReceipe[0]?.strArea ?? '',
+    category: shownReceipe[0].strCategory,
+    alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
+    name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
+    image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
+  });
 
   const setFavorite = () => {
     const getFavorite = favorites();
     const isFavorite = getFavorite?.some((item) => item.id === id);
-
-    const favoriteObject = {
-      id,
-      type: (setCategory() === 'foods') ? 'food' : 'drink',
-      nationality: shownReceipe[0]?.strArea ?? '',
-      category: shownReceipe[0].strCategory,
-      alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
-      name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
-      image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
-    };
-
     if (getFavorite?.length > 0 && !isFavorite) {
-      SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject]);
+      SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject()]);
     } else if (!isFavorite) {
-      SetToLocalStorage('favoriteRecipes', [favoriteObject]);
+      SetToLocalStorage('favoriteRecipes', [favoriteObject()]);
     } else if (isFavorite) {
       const filtredLS = getFavorite.filter((recipe) => recipe.id !== id);
       SetToLocalStorage('favoriteRecipes', filtredLS);
     }
 
     setIsAlreadyFavorite(!isAlreadyFavorite);
-    // console.log(GetToLocalStorage('favoriteRecipes'));
   };
 
   const findSrc = () => (isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon);
@@ -55,14 +53,20 @@ export default function BtnsMenu() {
   const copyShare = () => {
     const URL = window.location.href;
     const inProgressIndex = URL.indexOf('/in-progress');
-    const formatedURL = URL.substring(0, inProgressIndex);
-    if (inProgressIndex < 0) {
+    const doneRecipeIndex = URL.indexOf('/done-recipes');
+    if (inProgressIndex < 0 && doneRecipeIndex < 0) {
       navigator.clipboard.writeText(URL);
+    } else if (inProgressIndex > 0 && doneRecipeIndex < 0) {
+      const formatedURL = URL.substring(0, inProgressIndex);
+      navigator.clipboard.writeText(formatedURL);
     } else {
+      const formatedURL = `${URL.substring(0, doneRecipeIndex)}/${type}s/${idRecipe}`;
       navigator.clipboard.writeText(formatedURL);
     }
     setCopyMessage(true);
   };
+
+  const checkURL = () => pathname.includes('done-recipes');
 
   useEffect(() => {
     const getFavorite = favorites();
@@ -81,15 +85,24 @@ export default function BtnsMenu() {
       >
         <img
           src={ shareIcon }
+          data-testid={ `${index}-horizontal-share-btn` }
           alt="share icon"
         />
       </button>
-      <button
-        type="button"
-        onClick={ setFavorite }
-      >
-        <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
-      </button>
+      {
+        !checkURL() && (
+          <button
+            type="button"
+            onClick={ setFavorite }
+          >
+            <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
+          </button>
+        )
+      }
     </div>
   );
 }
+
+BtnsMenu.propTypes = {
+  index: PropTypes.number,
+}.isRequired;

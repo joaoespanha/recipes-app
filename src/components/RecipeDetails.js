@@ -23,7 +23,6 @@ export default function RecipeDetails() {
 
   const getDetails = async () => {
     const receipe = await getReceipeDetails(setCategory(), id);
-    // console.log('receipe', receipe);
     setShownReceipe(receipe);
   };
 
