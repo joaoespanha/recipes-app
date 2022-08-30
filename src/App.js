@@ -30,8 +30,8 @@ function App() {
             <Route path="/drinks/:id/in-progress" component={ InProgressDrink } />
             <Route exact path="/drinks/:id" component={ SelectedDrink } />
             <Route exact path="/done-recipes" component={ DoneRecipes } />
+            <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
           </ReceipeProvider>
-          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route exact path="/drinks" component={ Drinks } />
           <Route exact path="/foods" component={ HomeFoods } />
 

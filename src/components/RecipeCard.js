@@ -25,8 +25,10 @@ export default function RecipeCard({ recipeData, index }) {
       <p data-testid={ `${index}-horizontal-done-date` }>
         { recipeData.doneDate }
       </p>
+      {
+        recipeData.tags && (
       <ul>
-        { recipeData.tags.map((tag, indexTag) => (indexTag < 2) && (
+        { recipeData.tags?.map((tag, indexTag) => (indexTag < 2) && (
           <li
             data-testid={ `${index}-${tag}-horizontal-tag` }
             key={ tag }
@@ -35,6 +37,8 @@ export default function RecipeCard({ recipeData, index }) {
           </li>
         )) }
       </ul>
+        )
+      }
       <BtnsMenu index={ index } type={ recipeData.type } idRecipe={ recipeData.id } />
     </div>
   );

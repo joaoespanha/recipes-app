@@ -12,7 +12,7 @@ export default function BtnsMenu({ index, idRecipe, type }) {
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
-  const { shownReceipe } = useContext(ReceipeContext);
+  const { shownReceipe, setfavoriteRecipeList } = useContext(ReceipeContext);
   const [copyMessage, setCopyMessage] = useState(false);
   const [isAlreadyFavorite, setIsAlreadyFavorite] = useState();
 
@@ -50,23 +50,29 @@ export default function BtnsMenu({ index, idRecipe, type }) {
 
   const findSrc = () => (isAlreadyFavorite ? blackHeartIcon : whiteHeartIcon);
 
-  const copyShare = () => {
+  const copyShare = (path) => {
     const URL = window.location.href;
-    const inProgressIndex = URL.indexOf('/in-progress');
-    const doneRecipeIndex = URL.indexOf('/done-recipes');
-    if (inProgressIndex < 0 && doneRecipeIndex < 0) {
+    const pathIndex = URL.indexOf(path);
+    if (pathIndex < 0) {
       navigator.clipboard.writeText(URL);
-    } else if (inProgressIndex > 0 && doneRecipeIndex < 0) {
-      const formatedURL = URL.substring(0, inProgressIndex);
+    } else if (pathIndex > 0 && path === '/in-progress') {
+      const formatedURL = URL.substring(0, pathIndex);
       navigator.clipboard.writeText(formatedURL);
     } else {
-      const formatedURL = `${URL.substring(0, doneRecipeIndex)}/${type}s/${idRecipe}`;
+      const formatedURL = `${URL.substring(0, pathIndex)}/${type}s/${idRecipe}`;
       navigator.clipboard.writeText(formatedURL);
     }
     setCopyMessage(true);
   };
 
-  const checkURL = () => pathname.includes('done-recipes');
+  const checkURL = (url) => pathname.includes(url);
+
+  const disfavor = () => {
+    const getFavorite = favorites();
+    const filtredLS = getFavorite.filter((recipe) => recipe.id !== idRecipe);
+    SetToLocalStorage('favoriteRecipes', filtredLS);
+    setfavoriteRecipeList(filtredLS);
+  };
 
   useEffect(() => {
     const getFavorite = favorites();
@@ -81,7 +87,7 @@ export default function BtnsMenu({ index, idRecipe, type }) {
       <button
         type="button"
         data-testid="share-btn"
-        onClick={ copyShare }
+        onClick={ () => copyShare(pathname) }
       >
         <img
           src={ shareIcon }
@@ -90,12 +96,23 @@ export default function BtnsMenu({ index, idRecipe, type }) {
         />
       </button>
       {
-        !checkURL() && (
+        !(checkURL('done-recipes') || checkURL('favorite-recipes')) ? (
           <button
             type="button"
             onClick={ setFavorite }
           >
             <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={ disfavor }
+          >
+            <img
+              src={ blackHeartIcon }
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              alt="disfavor btn"
+            />
           </button>
         )
       }
