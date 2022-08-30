@@ -6,6 +6,7 @@ function ReceipeProvider({ children }) {
   const [shownReceipe, setShownReceipe] = useState([{}]);
   const [doneRecipeButton, setDoneRecipeButton] = useState(true);
   const [doneRecipesList, setDoneRecipesList] = useState([]);
+  const [favoriteRecipeList, setfavoriteRecipeList] = useState([]);
 
   return (
     <ReceipeContext.Provider
@@ -16,6 +17,8 @@ function ReceipeProvider({ children }) {
         setDoneRecipeButton,
         doneRecipesList,
         setDoneRecipesList,
+        favoriteRecipeList,
+        setfavoriteRecipeList,
       } }
     >
       { children }
