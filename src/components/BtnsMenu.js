@@ -96,27 +96,26 @@ export default function BtnsMenu({ index, idRecipe, type }) {
           alt="share icon"
         />
       </button>
-      {
-        !(checkURL('done-recipes') || checkURL('favorite-recipes')) ? (
-          <button
-            type="button"
-            onClick={ setFavorite }
-          >
-            <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={ disfavor }
-          >
-            <img
-              src={ blackHeartIcon }
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              alt="disfavor btn"
-            />
-          </button>
-        )
-      }
+      { checkURL(id) && (
+        <button
+          type="button"
+          onClick={ setFavorite }
+        >
+          <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
+        </button>
+      ) }
+      { checkURL('favorite-recipes') && (
+        <button
+          type="button"
+          onClick={ disfavor }
+        >
+          <img
+            src={ blackHeartIcon }
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            alt="disfavor btn"
+          />
+        </button>
+      ) }
     </div>
   );
 }

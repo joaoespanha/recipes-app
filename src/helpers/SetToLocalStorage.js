@@ -1,6 +1,10 @@
 const SetToLocalStorage = (key, value) => {
-  const stringifiedValue = JSON.stringify(value);
-  localStorage.setItem(key, stringifiedValue);
+  if (value === '' || value?.length === 0) {
+    localStorage.setItem(key, '[]');
+  } else {
+    const stringifiedValue = JSON.stringify(value);
+    localStorage.setItem(key, stringifiedValue);
+  }
 };
 
 export default SetToLocalStorage;
