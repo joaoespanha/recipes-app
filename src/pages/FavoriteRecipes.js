@@ -3,6 +3,7 @@ import ReceipeContext from '../context/ReceipeContext';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
+import BtnFilters from '../components/BtnFilters';
 
 export default function FavoriteRecipes() {
   const { favoriteRecipeList, setfavoriteRecipeList } = useContext(ReceipeContext);
@@ -11,7 +12,6 @@ export default function FavoriteRecipes() {
     const recipesList = GetToLocalStorage('favoriteRecipes');
     setfavoriteRecipeList(recipesList);
   };
-  console.log(favoriteRecipeList);
 
   useEffect(() => {
     getFromLocalStorage();
@@ -21,6 +21,7 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" />
+      <BtnFilters pathname="favoriteRecipes" />
       { favoriteRecipeList?.map((recipe, index) => (
         <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
       )) }
