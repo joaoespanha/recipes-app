@@ -27,16 +27,18 @@ export default function RecipeCard({ recipeData, index }) {
       </p>
       {
         recipeData.tags && (
-      <ul>
-        { recipeData.tags?.map((tag, indexTag) => (indexTag < 2) && (
-          <li
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-            key={ tag }
-          >
-            {tag}
-          </li>
-        )) }
-      </ul>
+          <ul>
+            { recipeData.tags.map((tag, indexTag) => (indexTag < 2) && (
+              <li
+                data-testid={
+                  `${index}-${tag}-horizontal-tag`
+                }
+                key={ tag }
+              >
+                {tag}
+              </li>
+            )) }
+          </ul>
         )
       }
       <BtnsMenu index={ index } type={ recipeData.type } idRecipe={ recipeData.id } />
