@@ -1,5 +1,5 @@
 const SetToLocalStorage = (key, value) => {
-  if (value === '' || value?.length === 0) {
+  if (value?.length === 0) {
     localStorage.setItem(key, '[]');
   } else {
     const stringifiedValue = JSON.stringify(value);
