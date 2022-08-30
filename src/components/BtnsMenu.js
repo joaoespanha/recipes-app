@@ -52,15 +52,16 @@ export default function BtnsMenu({ index, idRecipe, type }) {
 
   const copyShare = (path) => {
     const URL = window.location.href;
-    const pathIndex = URL.indexOf(path);
-    if (pathIndex < 0) {
-      navigator.clipboard.writeText(URL);
-    } else if (pathIndex > 0 && path === '/in-progress') {
+    if (path === '/favorite-recipes' || path === '/done-recipes') {
+      const pathIndex = URL.indexOf(path);
+      const formatedURL = `${URL.substring(0, pathIndex)}/${type}s/${idRecipe}`;
+      navigator.clipboard.writeText(formatedURL);
+    } else if (path.includes('/in-progress')) {
+      const pathIndex = URL.indexOf('/in-progress');
       const formatedURL = URL.substring(0, pathIndex);
       navigator.clipboard.writeText(formatedURL);
     } else {
-      const formatedURL = `${URL.substring(0, pathIndex)}/${type}s/${idRecipe}`;
-      navigator.clipboard.writeText(formatedURL);
+      navigator.clipboard.writeText(URL);
     }
     setCopyMessage(true);
   };

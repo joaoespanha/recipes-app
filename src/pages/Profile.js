@@ -7,7 +7,7 @@ import GetToLocalStorage from '../helpers/GetToLocalStorage';
 export default function Profile({ history }) {
   const getEmailLocalStorage = () => {
     const userEmail = GetToLocalStorage('user');
-    return userEmail.email;
+    return userEmail?.email;
   };
 
   const pageRedirect = (url) => {
