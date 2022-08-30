@@ -8,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function BtnsMenu({ index }) {
+export default function BtnsMenu({ index, idRecipe, type }) {
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
@@ -53,10 +53,14 @@ export default function BtnsMenu({ index }) {
   const copyShare = () => {
     const URL = window.location.href;
     const inProgressIndex = URL.indexOf('/in-progress');
-    const formatedURL = URL.substring(0, inProgressIndex);
-    if (inProgressIndex < 0) {
+    const doneRecipeIndex = URL.indexOf('/done-recipes');
+    if (inProgressIndex < 0 && doneRecipeIndex < 0) {
       navigator.clipboard.writeText(URL);
+    } else if (inProgressIndex > 0 && doneRecipeIndex < 0) {
+      const formatedURL = URL.substring(0, inProgressIndex);
+      navigator.clipboard.writeText(formatedURL);
     } else {
+      const formatedURL = `${URL.substring(0, doneRecipeIndex)}/${type}s/${idRecipe}`;
       navigator.clipboard.writeText(formatedURL);
     }
     setCopyMessage(true);

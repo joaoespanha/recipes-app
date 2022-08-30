@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import BtnsMenu from './BtnsMenu';
 
 export default function RecipeCard({ recipeData, index }) {
   return (
     <div>
-      <img
-        data-testid={ `${index}-horizontal-image` }
-        alt={ recipeData.name }
-        src={ recipeData.image }
-      />
-      <p data-testid={ `${index}-horizontal-name` }>{ recipeData.name }</p>
+      <Link to={ `${recipeData.type}s/${recipeData.id}` }>
+        <img
+          data-testid={ `${index}-horizontal-image` }
+          alt={ recipeData.name }
+          src={ recipeData.image }
+          width="100%"
+        />
+        <p data-testid={ `${index}-horizontal-name` }>{ recipeData.name }</p>
+      </Link>
       <p
         data-testid={ `${index}-horizontal-top-text` }
       >
@@ -31,7 +35,7 @@ export default function RecipeCard({ recipeData, index }) {
           </li>
         )) }
       </ul>
-      <BtnsMenu index={ index } />
+      <BtnsMenu index={ index } type={ recipeData.type } idRecipe={ recipeData.id } />
     </div>
   );
 }

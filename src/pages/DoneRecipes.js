@@ -12,6 +12,12 @@ export default function DoneRecipes() {
     setDoneRecipesList(recipesList);
   };
 
+  const filterList = (category) => {
+    // getFromLocalStorage() --> não conseguimos aplicar a função por ser assíncrona;
+    const filteredRecipes = doneRecipesList.filter((item) => item.type === category);
+    setDoneRecipesList(filteredRecipes);
+  };
+
   useEffect(() => {
     getFromLocalStorage();
     // eslint-disable-next-line
@@ -20,9 +26,27 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <button type="button" data-testid="filter-by-all-btn">All</button>
-      <button type="button" data-testid="filter-by-food-btn">Food</button>
-      <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => filterList('food') }
+      >
+        Food
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => filterList('drink') }
+      >
+        Drinks
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ getFromLocalStorage }
+      >
+        All
+      </button>
       { doneRecipesList?.map((recipe, index) => (
         <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
       )) }
