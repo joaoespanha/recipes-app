@@ -14,6 +14,7 @@ export default function DoneRecipes() {
 
   useEffect(() => {
     getFromLocalStorage();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -23,7 +24,8 @@ export default function DoneRecipes() {
       <button type="button" data-testid="filter-by-food-btn">Food</button>
       <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       { doneRecipesList?.map((recipe, index) => (
-        <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />)) }
+        <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
+      )) }
     </div>
   );
 }

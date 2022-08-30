@@ -23,24 +23,23 @@ export default function BtnsMenu({ index }) {
     return returnedCategory[0];
   };
 
+  const favoriteObject = () => ({
+    id,
+    type: (setCategory() === 'foods') ? 'food' : 'drink',
+    nationality: shownReceipe[0]?.strArea ?? '',
+    category: shownReceipe[0].strCategory,
+    alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
+    name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
+    image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
+  });
+
   const setFavorite = () => {
     const getFavorite = favorites();
     const isFavorite = getFavorite?.some((item) => item.id === id);
-
-    const favoriteObject = {
-      id,
-      type: (setCategory() === 'foods') ? 'food' : 'drink',
-      nationality: shownReceipe[0]?.strArea ?? '',
-      category: shownReceipe[0].strCategory,
-      alcoholicOrNot: shownReceipe[0]?.strAlcoholic ?? '',
-      name: shownReceipe[0]?.strMeal ?? shownReceipe[0]?.strDrink,
-      image: shownReceipe[0]?.strMealThumb ?? shownReceipe[0]?.strDrinkThumb,
-    };
-
     if (getFavorite?.length > 0 && !isFavorite) {
-      SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject]);
+      SetToLocalStorage('favoriteRecipes', [...getFavorite, favoriteObject()]);
     } else if (!isFavorite) {
-      SetToLocalStorage('favoriteRecipes', [favoriteObject]);
+      SetToLocalStorage('favoriteRecipes', [favoriteObject()]);
     } else if (isFavorite) {
       const filtredLS = getFavorite.filter((recipe) => recipe.id !== id);
       SetToLocalStorage('favoriteRecipes', filtredLS);
