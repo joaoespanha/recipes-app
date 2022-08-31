@@ -123,7 +123,7 @@ export default function BtnsMenu({ index, idRecipe, type }) {
         />
       </button>
       <br />
-      { copyMessage && <span>Link copied!</span>}
+      { copyMessage && <span id="linkCopied">Link copied!</span>}
     </div>
   );
 }
