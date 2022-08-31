@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import SearchContext from '../context/SearchContext';
 import { getCategoryReceipes, getStartRecipes } from '../servicesAPI/requests';
+import '../style/homeFoods.css';
 
 export default function CategoriesBtns() {
   const {
@@ -19,7 +20,7 @@ export default function CategoriesBtns() {
 
   const toogleCategory = async ({ target }) => {
     const receipes = await getCategoryReceipes(currentCategory, target.value);
-    console.log(receipes);
+    // console.log(receipes);
     if (isFiltred) {
       await setRecipes();
     } else {
@@ -34,7 +35,7 @@ export default function CategoriesBtns() {
   };
 
   return (
-    <div>
+    <div className="buttons">
       { categoriesBtnFilters.map((btn, index) => (
         (index < maximumReceipes) && (
           <button

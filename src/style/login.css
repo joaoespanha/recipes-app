@@ -1,0 +1,59 @@
+@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
+
+  .entireLogin {
+    align-items: center;
+    background-image: url('../images/background.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 85vh;
+    display: flex;
+    flex-direction: column;
+    height: 640px;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .title {
+    color: #bf281b;
+    font-family: Verdana , Geneva , Tahoma , sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: -170px;
+    text-align: center;
+  }
+
+  .entireLogin h3 {
+    color: #bf281b;
+    font-family: Verdana , Geneva , Tahoma , sans-serif;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .loginDiv {
+    background-color: #1b40248f;
+    border: 2px solid white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 160px;
+    padding: 28px;
+  }
+
+  .loginDiv input {
+    border: 1px solid #bf281b;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .loginDiv button {
+    border: 1px solid #bf281b;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 5px;
+  }
+
+}

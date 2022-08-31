@@ -12,6 +12,7 @@ function Footer() {
           data-testid="drinks-bottom-btn"
           src={ drinkIcon }
           alt="drink logo"
+          className="drink"
         />
       </Link>
       <Link to="/foods">
@@ -19,6 +20,7 @@ function Footer() {
           data-testid="food-bottom-btn"
           src={ mealIcon }
           alt="meal logo"
+          className="meal"
         />
       </Link>
     </footer>

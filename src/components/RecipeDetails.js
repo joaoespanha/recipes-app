@@ -60,8 +60,10 @@ export default function RecipeDetails() {
 
   return (
     <div>
+      <div className="btnsMenu">
+        <BtnsMenu />
+      </div>
       { setCategory() === 'foods' ? <FoodDetails /> : <DrinkDetails /> }
-      <BtnsMenu />
       { !checkDoneRecipe() && (
         <button
           type="button"

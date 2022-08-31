@@ -4,6 +4,7 @@ import Card from './Card';
 import SearchContext from '../context/SearchContext';
 import CategoriesBtns from './CategoriesBtns';
 import { getStartRecipes, getReceipesCategories } from '../servicesAPI/requests';
+import '../style/homeFoods.css';
 
 function Recipes() {
   const { apiResponse,
@@ -43,7 +44,7 @@ function Recipes() {
   return (
     <main>
       <CategoriesBtns />
-      <section>
+      <section className="cardSection">
         { apiResponse?.map((recipe, index) => (
           (index < maximumReceipes) && <Card
             key={ index }

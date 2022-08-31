@@ -4,6 +4,7 @@ import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import BtnFilters from '../components/BtnFilters';
+import '../style/doneRecipes.css';
 
 export default function FavoriteRecipes() {
   const { favoriteRecipeList, setfavoriteRecipeList } = useContext(ReceipeContext);
@@ -21,10 +22,14 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" />
-      <BtnFilters pathname="favoriteRecipes" />
-      { favoriteRecipeList?.map((recipe, index) => (
-        <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
-      )) }
+      <div className="btnsFilterContainer">
+        <BtnFilters pathname="favoriteRecipes" />
+      </div>
+      <div className="cardList">
+        { favoriteRecipeList?.map((recipe, index) => (
+          <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
+        )) }
+      </div>
     </div>
   );
 }

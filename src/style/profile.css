@@ -1,0 +1,26 @@
+@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
+
+  .profileContent {
+    display: flex;
+    flex-direction: column;
+    margin: 80px 20px;
+    text-align: center;
+  }
+
+  .profileContent button {
+
+    /* background-color: #4c80598f; */
+    border: 1px solid #134d22;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 25px;
+    padding: 8px;
+  }
+
+  .profileContent span {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 30px 0;
+  }
+}

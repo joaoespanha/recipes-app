@@ -1,4 +1,110 @@
-.startRecipeBtn {
-  bottom: 0;
-  position: fixed;
+@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
+
+  .startRecipeBtn {
+
+    /* background-color: #7a8827; */
+    border: 1px solid #134d22;
+    border-radius: 5px;
+    bottom: 0;
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 11px;
+    padding: 8px 0;
+    position: fixed;
+    width: 94%;
+  }
+
+  .recipeDetails img {
+    height: 210px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    width: 360px;
+  }
+
+  .recipeDetails h3 {
+    font-size: 25px;
+    padding: 10px 15px 0;
+  }
+
+  .recipeDetails h4 {
+    color: #bf281b;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px 15px 10px;
+  }
+
+  .recipeDetails ul {
+    background-color: #dda1485d;
+    border-radius: 5px;
+    margin: 10px 15px;
+    padding: 15px 40px;
+  }
+
+  .recipeDetails form {
+    background-color: #dda1485d;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    gap: 10px;
+    margin: 10px 15px;
+    padding: 15px 25px;
+  }
+
+  .btnsMenu button {
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    padding: 5px;
+  }
+
+  .recipeDetails form button {
+    border: 1px solid #134d22;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 5px;
+  }
+
+  .checked {
+    text-decoration: line-through;
+  }
+
+  .recipeDetails p {
+    background-color: #dda1485d;
+    border-radius: 5px;
+    margin: 10px 15px;
+    padding: 20px;
+    text-align: justify;
+  }
+
+  .foodDetails {
+    margin-bottom: 50px;
+  }
+
+  .foodDetails iframe {
+    height: 250px;
+    margin: 20px 12px;
+    width: 94%;
+  }
+
+  .foodDetails h3 {
+    font-size: 25px;
+    padding: 10px 15px 0;
+  }
+
+  .btnsMenu {
+    background-color: white;
+    left: 250px;
+    position: absolute;
+    top: 173px;
+    z-index: 2;
+  }
+
+  .btnsMenu span {
+    color: rgb(94, 94, 94);
+    font-size: 15px;
+    font-style: italic;
+  }
 }
