@@ -20,7 +20,7 @@ export default function CategoriesBtns() {
 
   const toogleCategory = async ({ target }) => {
     const receipes = await getCategoryReceipes(currentCategory, target.value);
-    console.log(receipes);
+    // console.log(receipes);
     if (isFiltred) {
       await setRecipes();
     } else {

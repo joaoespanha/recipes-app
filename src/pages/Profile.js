@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
+import '../style/profile.css';
 
 export default function Profile({ history }) {
   const getEmailLocalStorage = () => {
@@ -22,7 +23,7 @@ export default function Profile({ history }) {
   return (
     <div>
       <Header title="Profile" />
-      <div>
+      <div className="profileContent">
         <span data-testid="profile-email">{ getEmailLocalStorage() }</span>
         <button
           type="button"

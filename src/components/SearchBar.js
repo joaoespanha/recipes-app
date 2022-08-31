@@ -65,7 +65,7 @@ function SearchBar() {
             value="ingredient"
             onChange={ handleInput }
           />
-          Ingredient
+          {' Ingredient'}
         </label>
         <label htmlFor="name" className="inputRadio">
           <input
@@ -76,7 +76,7 @@ function SearchBar() {
             value="name"
             onChange={ handleInput }
           />
-          Name
+          {' Name'}
         </label>
         <label htmlFor="firstLetter" className="inputRadio">
           <input
@@ -87,7 +87,7 @@ function SearchBar() {
             value="firstLetter"
             onChange={ handleInput }
           />
-          First letter
+          {' First letter'}
         </label>
         <button
           data-testid="exec-search-btn"

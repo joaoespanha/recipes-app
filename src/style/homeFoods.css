@@ -2,34 +2,33 @@
 
   .buttons {
     align-items: center;
-    background-color: white;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    margin-top: 47px;
+    margin-top: 50px;
     padding: 10px 0;
   }
 
   .buttons button {
-    background-color: #bf7d2cbb;
+    background-color: #4c80598f;
     border-radius: 5px;
     font-weight: 700;
-    padding: 6px;
+    padding: 5px;
     width: 31%;
   }
 
   .card {
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     margin: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
   }
 
   .card h3 {
-    font-size: 25px;
+    font-size: 20px;
     padding: 5px;
     text-align: center;
   }
@@ -37,7 +36,7 @@
   .card img {
     align-self: center;
     border-radius: 15px;
-    width: 50%;
+    width: 100%;
   }
 
   .link {
@@ -45,10 +44,12 @@
     font-family: Verdana , Geneva , Tahoma , sans-serif;
     font-weight: 700;
     text-decoration: none;
+    width: 50%;
   }
 
   .cardSection {
-    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 60px;
     padding-top: 5px;
   }

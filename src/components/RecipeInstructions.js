@@ -3,6 +3,7 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 import ReceipeContext from '../context/ReceipeContext';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
+import '../style/RecipeDetails.css';
 
 export default function RecipeInstructions() {
   const { shownReceipe } = useContext(ReceipeContext);
@@ -123,7 +124,7 @@ export default function RecipeInstructions() {
   }, [instructionsDone]);
 
   return (
-    <div>
+    <div className="recipeDetails">
       <img
         src={ shownReceipe[0]?.strMealThumb ?? shownReceipe[0].strDrinkThumb }
         alt={ shownReceipe[0]?.strMeal ?? shownReceipe[0].strDrink }
@@ -147,6 +148,9 @@ export default function RecipeInstructions() {
               htmlFor={ `listItem${index + 1}` }
               key={ index }
               data-testid={ `${index}-ingredient-step` }
+              className={ isChecked(
+                `${instruction.ingredient} ${instruction?.measure ?? ''}`,
+              ) ? 'checked' : '' }
             >
               <input
                 type="checkbox"
@@ -158,7 +162,7 @@ export default function RecipeInstructions() {
                   isChecked(`${instruction.ingredient} ${instruction?.measure ?? ''}`)
                 }
               />
-              {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
+              {` ${instruction.ingredient} ${instruction?.measure ?? ''}`}
             </label>
           )) }
           <button
@@ -171,16 +175,20 @@ export default function RecipeInstructions() {
           </button>
         </form>
       ) : (
-        <ul>
-          { concatIgredientsData().map((instruction, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
-            </li>
-          )) }
-        </ul>)}
+        <>
+          <h3>Ingredients</h3>
+          <ul>
+            { concatIgredientsData().map((instruction, index) => (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${instruction.ingredient} ${instruction?.measure ?? ''}`}
+              </li>
+            )) }
+          </ul>
+        </>)}
+      <h3>Instructions</h3>
       <p data-testid="instructions">{ shownReceipe[0].strInstructions }</p>
     </div>
   );

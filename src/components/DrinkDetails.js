@@ -4,6 +4,7 @@ import '@splidejs/splide/dist/css/splide.min.css';
 import Card from './Card';
 import { getStartRecipes } from '../servicesAPI/requests';
 import RecipeInstructions from './RecipeInstructions';
+import '../style/RecipeDetails.css';
 
 export default function DrinkDetails() {
   const [recomendations, setRecomendations] = useState([]);
@@ -19,8 +20,9 @@ export default function DrinkDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="foodDetails">
       <RecipeInstructions />
+      <h3>Recommended</h3>
       <Splide
         options={ {
           perPage: 2,

@@ -1,0 +1,68 @@
+.btnsFilterContainer {
+  margin: 65px 5px 20px;
+}
+
+.btnsFilter {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.btnsFilter button {
+  background-color: #4c80598f;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 10px;
+  padding: 5px;
+  width: 31%;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipeCard {
+  align-items: center;
+  display: flex;
+  margin: 10px 15px;
+}
+
+.recipeCard img {
+  border-radius: 15px;
+}
+
+.recipeCard p {
+  padding: 0 10px 3px;
+}
+
+.linkCard {
+  color: #bf281b;
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  width: 50%;
+}
+
+.cardInfo {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.cardInfo p {
+  margin-bottom: 5px;
+}
+
+.btnsMenuCard button {
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+}
+
+.btnsMenuCard span {
+  color: rgb(94, 94, 94);
+  font-size: 15px;
+  font-style: italic;
+}

@@ -83,25 +83,18 @@ export default function BtnsMenu({ index, idRecipe, type }) {
   }, []);
 
   return (
-    <div style={ { marginLeft: '100px' } }>
-      { copyMessage && <span>Link copied!</span>}
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => copyShare(pathname) }
-      >
-        <img
-          src={ shareIcon }
-          data-testid={ `${index}-horizontal-share-btn` }
-          alt="share icon"
-        />
-      </button>
+    <div>
       { checkURL(id) && (
         <button
           type="button"
           onClick={ setFavorite }
         >
-          <img src={ findSrc() } data-testid="favorite-btn" alt="favorite btn" />
+          <img
+            src={ findSrc() }
+            data-testid="favorite-btn"
+            alt="favorite btn"
+            width="25px"
+          />
         </button>
       ) }
       { checkURL('favorite-recipes') && (
@@ -113,9 +106,24 @@ export default function BtnsMenu({ index, idRecipe, type }) {
             src={ blackHeartIcon }
             data-testid={ `${index}-horizontal-favorite-btn` }
             alt="disfavor btn"
+            width="25px"
           />
         </button>
       ) }
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyShare(pathname) }
+      >
+        <img
+          src={ shareIcon }
+          data-testid={ `${index}-horizontal-share-btn` }
+          alt="share icon"
+          width="25px"
+        />
+      </button>
+      <br />
+      { copyMessage && <span>Link copied!</span>}
     </div>
   );
 }

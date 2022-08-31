@@ -4,6 +4,7 @@ import ReceipeContext from '../context/ReceipeContext';
 import BtnFilters from '../components/BtnFilters';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
+import '../style/doneRecipes.css';
 
 export default function DoneRecipes() {
   const { doneRecipesList, setDoneRecipesList } = useContext(ReceipeContext);
@@ -21,10 +22,14 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <BtnFilters pathname="doneRecipes" />
-      { doneRecipesList?.map((recipe, index) => (
-        <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
-      )) }
+      <div className="btnsFilterContainer">
+        <BtnFilters pathname="doneRecipes" />
+      </div>
+      <div className="cardList">
+        { doneRecipesList?.map((recipe, index) => (
+          <RecipeCard recipeData={ recipe } index={ index } key={ recipe.id } />
+        )) }
+      </div>
     </div>
   );
 }

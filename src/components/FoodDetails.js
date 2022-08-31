@@ -5,6 +5,7 @@ import ReceipeContext from '../context/ReceipeContext';
 import { getStartRecipes } from '../servicesAPI/requests';
 import Card from './Card';
 import RecipeInstructions from './RecipeInstructions';
+import '../style/RecipeDetails.css';
 
 export default function FoodDetails() {
   const { shownReceipe } = useContext(ReceipeContext);
@@ -23,7 +24,7 @@ export default function FoodDetails() {
   const embedURL = () => shownReceipe[0].strYoutube?.replace('watch?v=', 'embed/');
 
   return (
-    <div>
+    <div className="foodDetails">
       <RecipeInstructions />
       <iframe
         width="100%"
@@ -36,6 +37,7 @@ export default function FoodDetails() {
           + 'encrypted-media; gyroscope; picture-in-picture' }
         allowFullScreen
       />
+      <h3>Recommended</h3>
       <Splide
         options={ {
           perPage: 2,

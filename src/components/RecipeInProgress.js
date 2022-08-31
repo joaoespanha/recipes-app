@@ -4,6 +4,7 @@ import BtnsMenu from './BtnsMenu';
 import RecipeInstructions from './RecipeInstructions';
 import ReceipeContext from '../context/ReceipeContext';
 import { getReceipeDetails } from '../servicesAPI/requests';
+import '../style/RecipeDetails.css';
 
 export default function RecipeInProgress() {
   const { id } = useParams();
@@ -28,8 +29,10 @@ export default function RecipeInProgress() {
 
   return (
     <div>
+      <div className="btnsMenu">
+        <BtnsMenu />
+      </div>
       <RecipeInstructions />
-      <BtnsMenu />
     </div>
   );
 }

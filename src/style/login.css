@@ -14,7 +14,7 @@
   }
 
   .title {
-    color: #1b4024;
+    color: #bf281b;
     font-family: Verdana , Geneva , Tahoma , sans-serif;
     font-size: 45px;
     font-weight: 700;
@@ -28,18 +28,21 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin-top: 160px;
     padding: 28px;
   }
 
   .loginDiv input {
     border-radius: 10px;
+    font-size: 15px;
     padding: 8px;
     text-align: center;
   }
 
   .loginDiv button {
+    border-radius: 5px;
+    font-size: 15px;
     font-weight: 700;
     padding: 5px;
   }

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ReceipeContext from '../context/ReceipeContext';
 import GetToLocalStorage from '../helpers/GetToLocalStorage';
+import '../style/doneRecipes.css';
 
 export default function BtnFilters({ pathname }) {
   const { doneRecipesList, setDoneRecipesList,
@@ -29,7 +30,7 @@ export default function BtnFilters({ pathname }) {
   };
 
   return (
-    <div>
+    <div className="btnsFilter">
       <button
         type="button"
         data-testid="filter-by-food-btn"
