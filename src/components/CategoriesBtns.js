@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import SearchContext from '../context/SearchContext';
 import { getCategoryReceipes, getStartRecipes } from '../servicesAPI/requests';
+import '../style/homeFoods.css';
 
 export default function CategoriesBtns() {
   const {
@@ -34,7 +35,7 @@ export default function CategoriesBtns() {
   };
 
   return (
-    <div>
+    <div className="buttons">
       { categoriesBtnFilters.map((btn, index) => (
         (index < maximumReceipes) && (
           <button

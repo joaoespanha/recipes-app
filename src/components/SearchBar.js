@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchContext from '../context/SearchContext';
 import { fetchFoods, fetchDrinks } from '../servicesAPI/requests';
+import '../style/header.css';
 
 function SearchBar() {
   const {
@@ -45,7 +46,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="searchBar">
       <form>
         <input
           data-testid="search-input"
@@ -53,8 +54,9 @@ function SearchBar() {
           name="searchInput"
           value={ inputSearch }
           onChange={ handleInput }
+          className="inputText"
         />
-        <label htmlFor="ingredient">
+        <label htmlFor="ingredient" className="inputRadio">
           <input
             data-testid="ingredient-search-radio"
             type="radio"
@@ -65,7 +67,7 @@ function SearchBar() {
           />
           Ingredient
         </label>
-        <label htmlFor="name">
+        <label htmlFor="name" className="inputRadio">
           <input
             data-testid="name-search-radio"
             type="radio"
@@ -76,7 +78,7 @@ function SearchBar() {
           />
           Name
         </label>
-        <label htmlFor="firstLetter">
+        <label htmlFor="firstLetter" className="inputRadio">
           <input
             data-testid="first-letter-search-radio"
             type="radio"

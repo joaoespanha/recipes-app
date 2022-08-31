@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import SearchContext from '../context/SearchContext';
 import Footer from '../components/Footer';
 import Recipes from '../components/Recipes';
+import '../style/homeFoods.css';
 
 function HomeFoods() {
   const { setCurrentCategory } = useContext(SearchContext);

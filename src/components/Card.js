@@ -6,10 +6,12 @@ function Card({ index, isMeal, recipeData }) {
   return (
     <Link
       data-testid={ `${index}-recomendation-title` }
+      className="link"
       to={ isMeal ? `/foods/${recipeData.idMeal}` : `/drinks/${recipeData.idDrink}` }
     >
       <div
         data-testid={ `${index}-recipe-card` }
+        className="card"
       >
         <img
           data-testid={ `${index}-card-img` }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from '../context/LoginContext';
 import SetToLocalStorage from '../helpers/SetToLocalStorage';
+import '../style/login.css';
 
 function Login({ history }) {
   const {
@@ -45,32 +46,35 @@ function Login({ history }) {
   };
 
   return (
-    <div>
-      <input
-        data-testid="email-input"
-        type="email"
-        onChange={ handleInput }
-        name="emailInput"
-        placeholder="email@email.com"
-        value={ emailInput }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        onChange={ handleInput }
-        value={ passwordInput }
-        placeholder="senha"
-        name="passwordInput"
-      />
-      <button
-        data-testid="login-submit-btn"
-        type="submit"
-        onClick={ changePath }
-        disabled={ disabled }
-        name="enterButton"
-      >
-        Entrar
-      </button>
+    <div className="entireLogin">
+      <h1 className="title">App de receitas</h1>
+      <div className="loginDiv">
+        <input
+          data-testid="email-input"
+          type="email"
+          onChange={ handleInput }
+          name="emailInput"
+          placeholder="email@email.com"
+          value={ emailInput }
+        />
+        <input
+          data-testid="password-input"
+          type="password"
+          onChange={ handleInput }
+          value={ passwordInput }
+          placeholder="senha"
+          name="passwordInput"
+        />
+        <button
+          data-testid="login-submit-btn"
+          type="submit"
+          onClick={ changePath }
+          disabled={ disabled }
+          name="enterButton"
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }

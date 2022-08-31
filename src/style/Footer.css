@@ -1,4 +1,19 @@
 footer {
+  background-image: linear-gradient(#b27a25, #bf281b);
+  border-top: 1px solid black;
   bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 2.5px;
   position: fixed;
+  width: 100%;
+}
+
+.meal {
+  margin-top: 3px;
+  width: 45px;
+}
+
+.drink {
+  width: 50px;
 }

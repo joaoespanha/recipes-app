@@ -1,0 +1,55 @@
+@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
+
+  .buttons {
+    align-items: center;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 47px;
+    padding: 10px 0;
+  }
+
+  .buttons button {
+    background-color: #bf7d2cbb;
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 6px;
+    width: 31%;
+  }
+
+  .card {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+  .card h3 {
+    font-size: 25px;
+    padding: 5px;
+    text-align: center;
+  }
+
+  .card img {
+    align-self: center;
+    border-radius: 15px;
+    width: 50%;
+  }
+
+  .link {
+    color: black;
+    font-family: Verdana , Geneva , Tahoma , sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .cardSection {
+    background-color: white;
+    margin-bottom: 60px;
+    padding-top: 5px;
+  }
+}
