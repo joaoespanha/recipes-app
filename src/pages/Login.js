@@ -47,7 +47,8 @@ function Login({ history }) {
 
   return (
     <div className="entireLogin">
-      <h1 className="title">App de receitas</h1>
+      <h1 className="title">FOOD TRIP</h1>
+      <h3>Uma viagem gastronômica</h3>
       <div className="loginDiv">
         <input
           data-testid="email-input"

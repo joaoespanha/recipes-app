@@ -16,10 +16,17 @@
   .title {
     color: #bf281b;
     font-family: Verdana , Geneva , Tahoma , sans-serif;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: 700;
-    margin-top: -210px;
+    margin-top: -170px;
     text-align: center;
+  }
+
+  .entireLogin h3 {
+    color: #bf281b;
+    font-family: Verdana , Geneva , Tahoma , sans-serif;
+    font-size: 20px;
+    margin-top: 10px;
   }
 
   .loginDiv {

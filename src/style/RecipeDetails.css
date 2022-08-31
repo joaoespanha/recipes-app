@@ -1,103 +1,107 @@
-.startRecipeBtn {
-  background-color: #4c8059;
-  border-radius: 5px;
-  bottom: 0;
-  font-size: 15px;
-  font-weight: 600;
-  margin-left: 11px;
-  padding: 8px 0;
-  position: fixed;
-  width: 94%;
-}
+@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
 
-.recipeDetails img {
-  margin-bottom: 10px;
-  margin-top: -150px;
-  width: 100%;
-}
+  .startRecipeBtn {
+    background-color: #4c8059;
+    border-radius: 5px;
+    bottom: 0;
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: 11px;
+    padding: 8px 0;
+    position: fixed;
+    width: 94%;
+  }
 
-.recipeDetails h3 {
-  font-size: 25px;
-  padding: 10px 15px 0;
-}
+  .recipeDetails img {
+    height: 210px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    width: 360px;
+  }
 
-.recipeDetails h4 {
-  color: #bf281b;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 5px 15px 10px;
-}
+  .recipeDetails h3 {
+    font-size: 25px;
+    padding: 10px 15px 0;
+  }
 
-.recipeDetails ul {
-  background-color: #dda2487a;
-  border-radius: 5px;
-  margin: 10px 15px;
-  padding: 15px 40px;
-}
+  .recipeDetails h4 {
+    color: #bf281b;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px 15px 10px;
+  }
 
-.recipeDetails form {
-  background-color: #dda2487a;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  gap: 10px;
-  margin: 10px 15px;
-  padding: 15px 25px;
-}
+  .recipeDetails ul {
+    background-color: #dda2487a;
+    border-radius: 5px;
+    margin: 10px 15px;
+    padding: 15px 40px;
+  }
 
-.btnsMenu button {
-  background-color: transparent;
-  border: none;
-  margin: 0 10px;
-  padding: 5px;
-}
+  .recipeDetails form {
+    background-color: #dda2487a;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    gap: 10px;
+    margin: 10px 15px;
+    padding: 15px 25px;
+  }
 
-.recipeDetails form button {
-  border-radius: 5px;
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 10px;
-  padding: 5px;
-}
+  .btnsMenu button {
+    background-color: transparent;
+    border: none;
+    margin: 0 10px;
+    padding: 5px;
+  }
 
-.checked {
-  text-decoration: line-through;
-}
+  .recipeDetails form button {
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 5px;
+  }
 
-.recipeDetails p {
-  background-color: #dda2487a;
-  border-radius: 5px;
-  margin: 10px 15px;
-  padding: 20px;
-  text-align: justify;
-}
+  .checked {
+    text-decoration: line-through;
+  }
 
-.foodDetails {
-  margin-bottom: 50px;
-}
+  .recipeDetails p {
+    background-color: #dda2487a;
+    border-radius: 5px;
+    margin: 10px 15px;
+    padding: 20px;
+    text-align: justify;
+  }
 
-.foodDetails iframe {
-  height: 250px;
-  margin: 20px 12px;
-  width: 94%;
-}
+  .foodDetails {
+    margin-bottom: 50px;
+  }
 
-.foodDetails h3 {
-  font-size: 25px;
-  padding: 10px 15px 0;
-}
+  .foodDetails iframe {
+    height: 250px;
+    margin: 20px 12px;
+    width: 94%;
+  }
 
-.btnsMenu {
-  background-color: white;
-  left: 250px;
-  position: absolute;
-  top: 173px;
-  z-index: 2;
-}
+  .foodDetails h3 {
+    font-size: 25px;
+    padding: 10px 15px 0;
+  }
 
-.btnsMenu span {
-  color: rgb(94, 94, 94);
-  font-size: 15px;
-  font-style: italic;
+  .btnsMenu {
+    background-color: white;
+    left: 250px;
+    position: absolute;
+    top: 173px;
+    z-index: 2;
+  }
+
+  .btnsMenu span {
+    color: rgb(94, 94, 94);
+    font-size: 15px;
+    font-style: italic;
+  }
 }
