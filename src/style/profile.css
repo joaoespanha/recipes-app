@@ -8,7 +8,9 @@
   }
 
   .profileContent button {
-    background-color: #4c80598f;
+
+    /* background-color: #4c80598f; */
+    border: 1px solid #134d22;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 700;

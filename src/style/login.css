@@ -41,6 +41,7 @@
   }
 
   .loginDiv input {
+    border: 1px solid #bf281b;
     border-radius: 10px;
     font-size: 15px;
     padding: 8px;
@@ -48,6 +49,7 @@
   }
 
   .loginDiv button {
+    border: 1px solid #bf281b;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 700;
