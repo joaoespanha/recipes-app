@@ -9,6 +9,48 @@ export const searchIconPath = 'searchIcon.svg';
 
 export const moreThanOneTypeCase = 'Your search must have only 1 (one) character';
 
+export const errorMessage = 'Sorry, we haven\'t found any recipes for these filters.';
+
+export const drinkByIngredient = {
+  drinks: [
+    {
+      strDrink: 'Derby',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/52weey1606772672.jpg',
+      idDrink: '17187',
+    },
+    {
+      strDrink: 'Frozen Mint Daiquiri',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/jrhn1q1504884469.jpg',
+      idDrink: '11390',
+    },
+    {
+      strDrink: 'Mango Mojito',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/wfqmgm1630406820.jpg',
+      idDrink: '178358',
+    },
+    {
+      strDrink: 'Mint Julep',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/squyyq1439907312.jpg',
+      idDrink: '17206',
+    },
+    {
+      strDrink: 'Mojito Extra',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vwxrsw1478251483.jpg',
+      idDrink: '15841',
+    },
+    {
+      strDrink: 'Raspberry Julep',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/hyztmx1598719265.jpg',
+      idDrink: '178333',
+    },
+    {
+      strDrink: 'Smashed Watermelon Margarita',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/dztcv51598717861.jpg',
+      idDrink: '178332',
+    },
+  ],
+};
+
 export const singleCaseFoodData = {
   meals: [
     {
@@ -238,4 +280,92 @@ export const singleCaseDrinksData = {
       strCreativeCommonsConfirmed: 'No',
       dateModified: '2016-07-21 10:12:45',
     }],
+};
+
+export const doneRecipesLS = [
+  {
+    id: '52929',
+    type: 'food',
+    nationality: 'Canadian',
+    category: 'Dessert',
+    alcoholicOrNot: '',
+    name: 'Timbits',
+    image: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+    doneDate: '31/8/2022',
+    tags: [
+      'Snack',
+      'Treat',
+    ],
+  },
+  {
+    id: '12654',
+    type: 'drink',
+    nationality: '',
+    category: 'Shake',
+    alcoholicOrNot: 'Non alcoholic',
+    name: 'Banana Milk Shake',
+    image: 'https://www.thecocktaildb.com/images/media/drink/rtwwsx1472720307.jpg',
+    doneDate: '1/9/2022',
+    tags: [],
+  },
+];
+
+export const timbitsFoodData = {
+  meals: [
+    {
+      idMeal: '52929',
+      strMeal: 'Timbits',
+      strDrinkAlternate: null,
+      strCategory: 'Dessert',
+      strArea: 'Canadian',
+      strInstructions: 'Sift together dry ingredients.\r\nMix together wet ingredients and incorporate into dry. Stir until smooth.\r\nDrop by teaspoonfuls(no bigger) into hot oil (365 degrees, no hotter), turning after a few moments until golden brown on all sides.\r\nRemove and drain.\r\nRoll in cinnamon sugar while still warm and serve.',
+      strMealThumb: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
+      strTags: 'Snack,Treat',
+      strYoutube: 'https://www.youtube.com/watch?v=fFLn1h80AGQ',
+      strIngredient1: 'Flour',
+      strIngredient2: 'Sugar',
+      strIngredient3: 'Baking Powder',
+      strIngredient4: 'Salt',
+      strIngredient5: 'Egg',
+      strIngredient6: 'Milk',
+      strIngredient7: 'Oil',
+      strIngredient8: 'Oil',
+      strIngredient9: 'Icing Sugar',
+      strIngredient10: '',
+      strIngredient11: '',
+      strIngredient12: '',
+      strIngredient13: '',
+      strIngredient14: '',
+      strIngredient15: '',
+      strIngredient16: '',
+      strIngredient17: '',
+      strIngredient18: '',
+      strIngredient19: '',
+      strIngredient20: '',
+      strMeasure1: '2 cups ',
+      strMeasure2: '1/3 cup',
+      strMeasure3: '3 tsp',
+      strMeasure4: '½ tsp',
+      strMeasure5: '1 beaten',
+      strMeasure6: '¾ cup',
+      strMeasure7: '3 tbs',
+      strMeasure8: 'for frying',
+      strMeasure9: 'garnish',
+      strMeasure10: '',
+      strMeasure11: '',
+      strMeasure12: '',
+      strMeasure13: '',
+      strMeasure14: '',
+      strMeasure15: '',
+      strMeasure16: '',
+      strMeasure17: '',
+      strMeasure18: '',
+      strMeasure19: '',
+      strMeasure20: '',
+      strSource: 'http://www.geniuskitchen.com/recipe/drop-doughnuts-133877',
+      strImageSource: null,
+      strCreativeCommonsConfirmed: null,
+      dateModified: null,
+    },
+  ],
 };

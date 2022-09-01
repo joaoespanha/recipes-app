@@ -130,4 +130,6 @@ export default function BtnsMenu({ index, idRecipe, type }) {
 
 BtnsMenu.propTypes = {
   index: PropTypes.number,
+  idRecipe: PropTypes.number,
+  type: PropTypes.string,
 }.isRequired;

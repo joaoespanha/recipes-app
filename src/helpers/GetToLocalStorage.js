@@ -1,6 +1,6 @@
 const GetToLocalStorage = (key) => {
   const stringifiedValue = localStorage.getItem(key);
-  if (stringifiedValue === '' || stringifiedValue?.length === 0) return stringifiedValue;
+  if (stringifiedValue === '[]') return [];
   return JSON.parse(stringifiedValue);
 };
 

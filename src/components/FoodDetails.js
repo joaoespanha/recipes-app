@@ -49,7 +49,7 @@ export default function FoodDetails() {
       >
         { recomendations.map((item, index) => (
           <SplideSlide
-            key={ item.idDrink }
+            key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
             <Card

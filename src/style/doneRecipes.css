@@ -64,6 +64,19 @@
     margin-bottom: 5px;
   }
 
+  .cardInfo ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .cardInfo li {
+    background-color: #dda1485d;
+    border-radius: 5px;
+    list-style: none;
+    margin-left: 8px;
+    padding: 5px;
+  }
+
   .btnsMenuCard button {
     background-color: transparent;
     border: none;
