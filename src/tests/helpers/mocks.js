@@ -516,3 +516,39 @@ export const adamDrinkData = {
     }
   ]
 };
+
+export const recipeInProgressAdam = {
+  "cocktails": {
+      "17837": [
+        "Dark rum 2 oz ",
+        "Lemon juice 1 oz "
+      ]
+  },
+};
+
+export const recipeInProgressBurek = {
+  "meals": {
+      "53060": [
+        "Filo Pastry 1 Packet",
+        "Minced Beef 150g",
+        "Onion 150g"
+      ]
+  }
+}
+
+export const recipeDoneBurek = [
+  {
+    "id": "53060",
+    "type": "food",
+    "nationality": "Croatian",
+    "category": "Side",
+    "alcoholicOrNot": "",
+    "name": "Burek",
+    "image": "https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg",
+    "doneDate": "2/9/2022",
+    "tags": [
+      "Streetfood",
+      " Onthego"
+    ]
+  }
+]

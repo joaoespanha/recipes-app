@@ -2,6 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
+import SetToLocalStorage from '../helpers/SetToLocalStorage';
 import renderWithRouter from './helpers/renderWithRouter';
 import * as mocks from './helpers/mocks';
 
@@ -22,7 +23,10 @@ describe('Testando o componente Recipe Details', () => {
     });
   });
 
-  // afterEach(() => jest.resetAllMocks());
+  afterEach(() => {
+    jest.resetAllMocks()
+    localStorage.clear();
+  });
 
   test('Testa se ao clicar no btn Start Recipe há o redirecionamento para receita de foods em progresso', async () => {
     const { history } = renderWithRouter(<App />, `/foods/${mocks.burekFoodData.meals.idMeal}`);
@@ -43,30 +47,51 @@ describe('Testando o componente Recipe Details', () => {
   });
 
   test('Testa os elementos que devem aparecer na tela de comida em progresso', async () => {
-    renderWithRouter(<App />, `/foods/${mocks.burekFoodData.meals.idMeal}/in-progress`);
+    renderWithRouter(<App />, `/foods/${mocks.burekFoodData.meals.idMeal}`);
 
     const favoriteBtn = screen.getByRole('button', { name: /favorite btn/i });
     const shareIcon = screen.getByTestId('share-btn');
     const image = screen.getByTestId('recipe-photo');
-    const finishRecipe = screen.getByTestId('finish-recipe-btn');
+    const startRecipe = screen.getByTestId('start-recipe-btn');
 
     expect(favoriteBtn).toBeInTheDocument();
     expect(shareIcon).toBeInTheDocument();
     expect(image).toBeInTheDocument();
-    expect(finishRecipe).toBeInTheDocument();
+    expect(startRecipe).toBeInTheDocument();
   });
 
   test('Testa os elementos que devem aparecer na tela de bebida em progresso', async () => {
-    renderWithRouter(<App />, `/drinks/${mocks.adamDrinkData.drinks.idDrink}/in-progress`);
+    renderWithRouter(<App />, `/drinks/${mocks.adamDrinkData.drinks.idDrink}`);
 
     const favoriteBtn = screen.getByRole('button', { name: /favorite btn/i });
     const shareIcon = screen.getByTestId('share-btn');
     const image = screen.getByTestId('recipe-photo');
-    const finishRecipe = screen.getByTestId('finish-recipe-btn');
+    const startRecipe = screen.getByTestId('start-recipe-btn');
 
     expect(favoriteBtn).toBeInTheDocument();
     expect(shareIcon).toBeInTheDocument();
     expect(image).toBeInTheDocument();
-    expect(finishRecipe).toBeInTheDocument();
+    expect(startRecipe).toBeInTheDocument();
+  });
+
+  test('Testa se o botão altera de start recipe para continue recipe na tela de detalhe de bebidas', async () => {
+    SetToLocalStorage('inProgressRecipes', mocks.recipeInProgressAdam);
+    renderWithRouter(<App />, `/drinks/${mocks.adamDrinkData.drinks[0].idDrink}`);
+    const startBtn = screen.getByTestId('start-recipe-btn');
+    expect(startBtn).toHaveTextContent('Continue Recipe');
+  });
+
+  test('Testa se o botão altera de start recipe para continue recipe na tela de detalhe de comidas', async () => {
+    SetToLocalStorage('inProgressRecipes', mocks.recipeInProgressBurek);
+    renderWithRouter(<App />, `/foods/${mocks.burekFoodData.meals[0].idMeal}`);
+    const startBtn = screen.getByTestId('start-recipe-btn');
+    expect(startBtn).toHaveTextContent('Continue Recipe');
+  });
+
+  test('Testa se o botão não aparece quando a receita já foi finalizada', async () => {
+    SetToLocalStorage('doneRecipes', mocks.recipeDoneBurek);
+    renderWithRouter(<App />, `/foods/${mocks.burekFoodData.meals[0].idMeal}`);
+    const startBtn = screen.queryByTestId('start-recipe-btn');
+    expect(startBtn).not.toBeInTheDocument();
   });
 });
