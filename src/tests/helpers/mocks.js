@@ -536,7 +536,7 @@ export const recipeInProgressBurek = {
   }
 }
 
-export const recipeDoneBurek = [
+export const doneRecipeBurek = [
   {
     "id": "53060",
     "type": "food",
