@@ -34,7 +34,7 @@ export default function DrinkDetails() {
       >
         { recomendations.map((item, index) => (
           <SplideSlide
-            key={ item.idMeal }
+            key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
             <Card
