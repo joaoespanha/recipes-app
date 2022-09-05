@@ -20,11 +20,11 @@ describe('Testa se os botões de filtro aparecem na tela', () => {
   test('Testa se os botões para a busca estão na tela', async () => {
     renderWithRouter(<App />, '/foods');
 
-    await screen.findByRole("button", { name: mealCategories.meals[0].strCategory });
-    await screen.findByRole("button", { name: mealCategories.meals[1].strCategory });
-    await screen.findByRole("button", { name: mealCategories.meals[2].strCategory });
-    await screen.findByRole("button", { name: mealCategories.meals[3].strCategory });
-    await screen.findByRole("button", { name: mealCategories.meals[4].strCategory });
+    await screen.findByRole('button', { name: mealCategories.meals[0].strCategory });
+    await screen.findByRole('button', { name: mealCategories.meals[1].strCategory });
+    await screen.findByRole('button', { name: mealCategories.meals[2].strCategory });
+    await screen.findByRole('button', { name: mealCategories.meals[3].strCategory });
+    await screen.findByRole('button', { name: mealCategories.meals[4].strCategory });
   });
 
   test('Testa se é possível fazer filtro de comidas da categoria Chicken', async () => {
