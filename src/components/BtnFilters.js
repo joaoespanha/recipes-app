@@ -5,26 +5,23 @@ import GetToLocalStorage from '../helpers/GetToLocalStorage';
 import '../style/doneRecipes.css';
 
 export default function BtnFilters({ pathname }) {
-  const { doneRecipesList, setDoneRecipesList,
-    favoriteRecipeList, setfavoriteRecipeList } = useContext(ReceipeContext);
+  const { setDoneRecipesList, setfavoriteRecipeList } = useContext(ReceipeContext);
 
   const filterList = (category) => {
-    // getFromLocalStorage() --> não conseguimos aplicar a função por ser assíncrona;
+    const recipesList = GetToLocalStorage(pathname);
+    const filteredRecipes = recipesList.filter((item) => item.type === category);
     if (pathname === 'doneRecipes') {
-      const filteredRecipes = doneRecipesList.filter((item) => item.type === category);
       setDoneRecipesList(filteredRecipes);
     } else if (pathname === 'favoriteRecipes') {
-      const filteredRecipes = favoriteRecipeList.filter((item) => item.type === category);
       setfavoriteRecipeList(filteredRecipes);
     }
   };
 
   const getFromLocalStorage = () => {
+    const recipesList = GetToLocalStorage(pathname);
     if (pathname === 'doneRecipes') {
-      const recipesList = GetToLocalStorage('doneRecipes');
       setDoneRecipesList(recipesList);
     } else if (pathname === 'favoriteRecipes') {
-      const recipesList = GetToLocalStorage('favoriteRecipes');
       setfavoriteRecipeList(recipesList);
     }
   };

@@ -5,44 +5,41 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
-
-const meals = require('../../cypress/mocks/meals');
+import * as mocks from './helpers/mocks';
 
 describe('Testando o componente RecipeInProgress', () => {
-
-  Object.assign(navigator, {
-    clipboard: {
-      writeText: () => {},
-    },
-  });
-
-  jest.spyOn(navigator.clipboard, 'writeText');
-
   beforeEach(() => {
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: () => {},
+      },
+    });
+
+    jest.spyOn(navigator.clipboard, 'writeText');
+
     global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(meals),
+      json: jest.fn().mockResolvedValue(mocks.corbaFoodData),
     });
   });
 
   afterEach(() => jest.resetAllMocks());
 
   test('Testa os itens de uma página de receita em progresso', async () => {
-    renderWithRouter(<App />, '/foods/53026/in-progress');
+    renderWithRouter(<App />, '/foods/52977/in-progress');
 
     await screen.findByRole('heading', { name: /corba/i });
     await screen.findByRole('img', { name: /corba/i });
-    await screen.findByRole('button', { name: /finish recipe/i });
-    await screen.findByRole('heading', { name: /instructions/i });
+    screen.getByRole('button', { name: /finish recipe/i });
+    screen.getByRole('heading', { name: /instructions/i });
 
-    const shareButton =  await screen.findByTestId('share-btn');
-    
-    const favoriteButton = await screen.findByTestId('favorite-btn')
+    const favoriteButton = screen.getByTestId('favorite-btn');
     expect(favoriteButton).toHaveAttribute('src', whiteHeartIcon);
     userEvent.click(favoriteButton);
     expect(favoriteButton).toHaveAttribute('src', blackHeartIcon);
+
+    const shareButton = screen.getByTestId('share-btn');
     userEvent.click(shareButton);
-    const shareMessage = await screen.findByText(/Link copied!/i);
+    const shareMessage = screen.getByText(/Link copied!/i);
     expect(shareMessage).toBeInTheDocument();
   });
-})
+});
